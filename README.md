@@ -11,4 +11,4 @@ I have a vision of an application that helps people get in touch and start inter
 
 It is my belief that it is a project that fits AgileVentures.org and that together we can create an interesting solution that will help at least some of the many people who long for a new, safe life in Europe.
 
-/Thomas Ochamn (@tochman)
+/Thomas Ochamn ([@tochman](https://github.com/tochman))
