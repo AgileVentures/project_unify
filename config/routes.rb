@@ -55,10 +55,6 @@ Rails.application.routes.draw do
   #   end
 
   namespace :api do
-    namespace :v1 do
-      resources :test, only: [:index]
-
-    end
 
     namespace :v0 do
       resources :test, only: [:index]
