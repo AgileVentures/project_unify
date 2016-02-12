@@ -2,15 +2,22 @@ require 'childprocess'
 require 'timeout'
 require 'httparty'
 
+# get the address and port if present (e.g. when running on c9.io)
+host = ENV['IP'] || 'localhost'
+port = ENV['PORT'] || '9999'
+url = "http://#{host}:#{port}"
+puts host
+puts "starting app on #{url}"
+
 # Start the app
-server = ChildProcess.build('rackup', '--port', '9999')
+server = ChildProcess.build('rackup', '--host', host, '--port', port)
 server.start
 
 # Wait a bit until it is has fired up...
 Timeout.timeout(3) do
   loop do
     begin
-      HTTParty.get('http://localhost:9999')
+      HTTParty.get("#{url}")
       break
     rescue Errno::ECONNREFUSED =>
         try_again
@@ -21,5 +28,6 @@ end
 
 # Stop the app when all the tests finish
 at_exit do
+  puts "shutting down app on #{url}"
   server.stop
 end
