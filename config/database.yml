@@ -7,10 +7,13 @@ development:
   <<: *default
   database: unify_development
 
-test:
+test: &test
   <<: *default
   database: unify_test
 
 production:
   <<: *default
   database: unify_production
+
+cucumber:
+  <<: *test

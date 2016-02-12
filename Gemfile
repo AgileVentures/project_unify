@@ -28,6 +28,8 @@ end
 
 group :test do
   gem 'cucumber'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
   gem 'httparty'
   gem 'childprocess'
 end
