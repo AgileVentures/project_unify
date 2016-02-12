@@ -6,7 +6,7 @@ require 'httparty'
 host = ENV['IP'] || 'localhost'
 port = ENV['PORT'] || '9999'
 url = "http://#{host}:#{port}"
-puts host
+
 puts "starting app on #{url}"
 
 # Start the app
