@@ -57,8 +57,8 @@ Rails.application.routes.draw do
   namespace :api do
 
     namespace :v0 do
-      resources :test, only: [:index]
       resources :ping, only: [:index], :constraints => { :format => /(text|json)/ }
     end
+
   end
 end
