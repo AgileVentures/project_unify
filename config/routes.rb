@@ -53,4 +53,16 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :test, only: [:index]
+
+    end
+
+    namespace :v0 do
+      resources :test, only: [:index]
+      resources :ping, only: [:index], :constraints => { :format => /(text|json)/ }
+    end
+  end
 end
