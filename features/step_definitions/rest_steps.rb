@@ -1,10 +1,14 @@
+# There has to be a better way to do this - I really want the values from the start_app.rb file
+host = ENV['IP'] || 'localhost'
+port = ENV['PORT'] || '9999'
+url = "http://#{host}:#{port}"
+
 When(/^the Accept Type is (.*)/) do |accept_type|
   @accept_type = accept_type
 end
 
-
 When /^the client requests GET (.*)$/ do |path|
-  @last_response = HTTParty.get('http://localhost:9999' + path, :headers => { 'Accept' => @accept_type || 'application/json' })
+  @last_response = HTTParty.get("#{url}#{path}", :headers => { 'Accept' => @accept_type || 'application/json' })
 end
 
 Then(/^a "([^"]*)" status code is returned$/) do |status|
