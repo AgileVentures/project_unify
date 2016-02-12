@@ -2,11 +2,11 @@ require 'childprocess'
 require 'timeout'
 require 'httparty'
 
+# Start the app
 server = ChildProcess.build('rackup', '--port', '9999')
 server.start
-#sleep(5)
 
-
+# Wait a bit until it is has fired up...
 Timeout.timeout(3) do
   loop do
     begin
@@ -19,6 +19,7 @@ Timeout.timeout(3) do
   end
 end
 
+# Stop the app when all the tests finish
 at_exit do
   server.stop
 end
