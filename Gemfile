@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'json'
+gem 'godmin'
 
 group :development, :test do
   gem 'pry'
