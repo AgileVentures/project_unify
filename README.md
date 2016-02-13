@@ -1,4 +1,7 @@
 # Refugee Tech
+This repo is for the Back end Admin interface and API
+Mobile client repo: https://github.com/AgileVentures/project_unify_mobile
+###Background
 More than 700,000 refugees have made their way across the Mediterranean to Europe. The conflict in Syria continues to be by far the biggest driver of migration. But the ongoing violence in Afghanistan, abuses in Eritrea, as well as poverty in Kosovo and other regional conflicts are also leading people to look for new lives elsewhere. Many of the newly arrived refugees are highly skilled individuals, often with extensive professional experience. Others are young people who, because of war and the risk of persecution, was forced to interrupt their university studies.
 
 I see the current migration situation as an opportunity for our societies to grow. I think that we can all benefit from people choosing Europe as their new home. But I also acknowledge that there are obstacles along the way when trying to settle down in a new country - in a different culture and different customs and traditions.
