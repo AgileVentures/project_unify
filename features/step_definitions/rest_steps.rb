@@ -8,7 +8,7 @@ When(/^the Accept Type is (.*)/) do |accept_type|
 end
 
 When /^the client requests GET (.*)$/ do |path|
-  @last_response = HTTParty.get("#{url}#{path}", :headers => { 'Accept' => @accept_type || 'application/json' })
+  @last_response = HTTParty.get("#{Config.apiUri}#{path}", :headers => { 'Accept' => @accept_type || 'application/json' })
 end
 
 Then(/^a "([^"]*)" status code is returned$/) do |status|

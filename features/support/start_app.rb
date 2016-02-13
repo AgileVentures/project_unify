@@ -1,23 +1,19 @@
 require 'childprocess'
 require 'timeout'
 require 'httparty'
+require File.join(File.dirname(__FILE__), 'config')
 
-# get the address and port if present (e.g. when running on c9.io)
-host = ENV['IP'] || 'localhost'
-port = ENV['PORT'] || '9999'
-@url = "http://#{host}:#{port}"
-
-puts "starting app on #{@url}"
+puts "starting app on #{Config.apiUri}"
 
 # Start the app
-server = ChildProcess.build('rackup', '--host', host, '--port', port)
+server = ChildProcess.build('rackup', '--host', Config.apiHost, '--port', Config.apiPort)
 server.start
 
 # Wait a bit until it is has fired up...
 Timeout.timeout(10) do
   loop do
     begin
-      HTTParty.get("#{@url}")
+      HTTParty.get("#{Config.apiUri}")
       break
     rescue Errno::ECONNREFUSED =>
         try_again
@@ -28,6 +24,6 @@ end
 
 # Stop the app when all the tests finish
 at_exit do
-  puts "shutting down app on #{@url}"
+  puts "shutting down app on #{Config.apiUri}"
   server.stop
 end
