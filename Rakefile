@@ -5,5 +5,6 @@ require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
 
-task default: 'bundler:audit'
 task default: 'brakeman:run'
+task default: 'bundler:audit'
+
