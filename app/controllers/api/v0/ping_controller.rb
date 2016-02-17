@@ -1,4 +1,4 @@
-class Api::V0::PingController < Api::V0::BaseController
+class Api::V0::PingController < ApiController
 
   def index
     respond_to do |format|

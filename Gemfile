@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'json'
+gem 'godmin'
 
 group :development, :test do
   gem 'pry'
@@ -26,13 +27,13 @@ group :development do
   gem 'spring'
 
   # security checking
-  gem "brakeman", :require => false
-  gem "bundler-audit", :require => false
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
 end
 
 group :test do
   gem 'cucumber'
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'httparty'
   gem 'childprocess'
