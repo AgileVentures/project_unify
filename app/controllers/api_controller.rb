@@ -1,4 +1,4 @@
-class Api::V0::BaseController < ApplicationController
+class ApiController < ActionController::Base
   protect_from_forgery with: :null_session
 
   before_action :destroy_session
