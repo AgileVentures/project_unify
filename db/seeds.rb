@@ -8,6 +8,6 @@
 
 
 AdminUser.create!(
-    :email => "admin@admin.com",
-    :password => "asdf1234"
+    email: 'admin@admin.com',
+    password: 'password'
 )
