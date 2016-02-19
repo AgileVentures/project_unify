@@ -40,6 +40,13 @@ describe AdminUser, :type => :model do
     expect(admin).to_not be_valid
   end
   
+  it 'should have a unique email address' do
+    admin_one = create(:admin_user, email: "admin@admin.com") 
+    admin_two = build(:admin_user, email: "admin@admin.com") 
+    expect(admin_one).to be_valid
+    expect(admin_two).to_not be_valid
+  end
+  
   describe '#login_column' do
     it 'should return a email column' do
       expect(AdminUser.login_column).to eq :email    
