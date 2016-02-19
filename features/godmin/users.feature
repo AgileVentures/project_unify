@@ -29,3 +29,10 @@ Feature: As a system admin
     Then I should see "User was successfully created"
     And I should see 5 instances of User
 
+  Scenario: Update user
+
+  Scenario Delete user
+
+  Scenario: View user
+
+
