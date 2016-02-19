@@ -2,49 +2,43 @@ require 'rails_helper'
 
 describe AdminUser, :type => :model do
     
-  before(:each) do 
-    @admin  = build(:admin_user)
+  it 'should be of class AdminUser' do
+    expect(subject.class).to eq AdminUser
   end
   
   it 'should be valid' do
-     expect(@admin).to be_valid
+    expect(FactoryGirl.create(:admin_user)).to be_valid
   end
+  
   it 'should have an email address' do
-    @admin.email = ""
-    expect(@admin).to_not be_valid
+    expect(FactoryGirl.build(:admin_user, email: "")).to_not be_valid
   end
   
   it 'should not have an invalid email address' do
     emails = ['asdf@ ds.com', '@example.com', 'test me @yahoo.com', 'asdf@example', 'ddd@.d. .d', 'ddd@.d' ]
     emails.each do |email|
-      @admin.email = email
-      expect(@admin).to_not be_valid 
+      expect(FactoryGirl.build(:admin_user, email: email)).to_not be_valid 
     end
   end
   
   it 'should have a valid email address' do
     emails = ['asdf@ds.com', 'hello@example.uk', 'test1234@yahoo.si', 'asdf@example.eu' ]
     emails.each do |email|
-      @admin.email = email
-      expect(@admin).to be_valid 
+      expect(FactoryGirl.build(:admin_user, email: email)).to be_valid 
     end      
   end
  
   it 'should have a password' do
-    admin = build(:admin_user, password: "")
-    expect(admin).to_not be_valid
+    expect(FactoryGirl.build(:admin_user, password: "")).to_not be_valid
   end
   
   it 'should not have a password shorter than 6 chars' do
-    admin = build(:admin_user, password: "aaa")
-    expect(admin).to_not be_valid
+    expect(FactoryGirl.build(:admin_user, password: "aaa")).to_not be_valid
   end
   
   it 'should have a unique email address' do
-    admin_one = create(:admin_user, email: "admin@admin.com") 
-    admin_two = build(:admin_user, email: "admin@admin.com") 
-    expect(admin_one).to be_valid
-    expect(admin_two).to_not be_valid
+    expect(FactoryGirl.create(:admin_user, email: "admin@admin.com")).to be_valid
+    expect(FactoryGirl.build(:admin_user, email: "admin@admin.com")).to_not be_valid
   end
   
   describe '#login_column' do
