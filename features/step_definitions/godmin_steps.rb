@@ -28,3 +28,12 @@ end
 Then(/^I should see "([^"]*)"$/) do |text|
   expect(page).to have_content text
 end
+
+
+And(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field, value|
+  fill_in field, with: value
+end
+
+And(/^I should see ([^"]*) instances of ([^"]*)$/) do |count, model|
+  expect(Object.const_get(model).count).to eq count.to_i
+end
