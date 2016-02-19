@@ -8,7 +8,12 @@ When(/^the Accept Type is (.*)/) do |accept_type|
 end
 
 When /^the client requests GET (.*)$/ do |path|
-  @last_response = HTTParty.get("#{Config.apiUri}#{path}", :headers => { 'Accept' => @accept_type || 'application/json' })
+  #binding.pry
+  @last_response = HTTParty.get("#{Config.apiUri}#{path}", headers: { 'Accept' => @accept_type || 'application/json' })
+end
+
+When /^I send a GET request for ([^\"]*)$/ do |path|
+  get path
 end
 
 Then(/^a "([^"]*)" status code is returned$/) do |status|
