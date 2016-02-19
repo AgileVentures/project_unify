@@ -1,30 +1,35 @@
 require 'rails_helper'
 
 describe AdminUser, :type => :model do
+  
+  let!(:admin) { FactoryGirl.create(:admin_user) }
     
   it 'should be of class AdminUser' do
     expect(subject.class).to eq AdminUser
   end
   
   it 'should be valid' do
-    expect(FactoryGirl.create(:admin_user)).to be_valid
+    expect(admin).to be_valid
   end
   
   it 'should have an email address' do
-    expect(FactoryGirl.build(:admin_user, email: "")).to_not be_valid
+    admin.email = ""
+    expect(admin).to_not be_valid
   end
   
   it 'should not have an invalid email address' do
     emails = ['asdf@ ds.com', '@example.com', 'test me @yahoo.com', 'asdf@example', 'ddd@.d. .d', 'ddd@.d' ]
     emails.each do |email|
-      expect(FactoryGirl.build(:admin_user, email: email)).to_not be_valid 
+      admin.email = email
+      expect(admin).to_not be_valid 
     end
   end
   
   it 'should have a valid email address' do
     emails = ['asdf@ds.com', 'hello@example.uk', 'test1234@yahoo.si', 'asdf@example.eu' ]
     emails.each do |email|
-      expect(FactoryGirl.build(:admin_user, email: email)).to be_valid 
+      admin.email = email
+      expect(admin).to be_valid 
     end      
   end
  
@@ -37,7 +42,8 @@ describe AdminUser, :type => :model do
   end
   
   it 'should have a unique email address' do
-    expect(FactoryGirl.create(:admin_user, email: "admin@admin.com")).to be_valid
+    admin.email = "admin@admin.com"
+    admin.save!
     expect(FactoryGirl.build(:admin_user, email: "admin@admin.com")).to_not be_valid
   end
   
