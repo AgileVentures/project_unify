@@ -14,7 +14,7 @@ Feature: As a system admin
 
     Scenario: View Users index
       Given I am logged in as admin
-      And I click on "Users"
+      And I click on "User"
       Then I should see "Thomas"
       And I should see "Mazen"
       And I should see "Tarek"

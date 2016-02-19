@@ -26,5 +26,5 @@ Given(/^I click on "([^"]*)"$/) do |link|
 end
 
 Then(/^I should see "([^"]*)"$/) do |text|
-  expect(page).to have_conent text
+  expect(page).to have_content text
 end
