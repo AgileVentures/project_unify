@@ -9,7 +9,7 @@ Feature: Admin can login into admin panel
   
   Scenario: login into the admin panel
     And I fill in the login form with my creadentials
-    And I click "Sign in"
+    And I click on "Sign in"
     Then I should see "Welcome to Project Unify"
     
     
