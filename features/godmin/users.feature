@@ -1,3 +1,4 @@
+@javascript
 Feature: As a system admin
   In order to be able to perform CRUD actions on users
   I would like to be able to access them through Godmin interface

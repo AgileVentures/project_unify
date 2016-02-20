@@ -38,5 +38,6 @@ group :test do
   gem 'database_cleaner'
   gem 'httparty'
   gem 'childprocess'
+  gem 'poltergeist'
 end
 
