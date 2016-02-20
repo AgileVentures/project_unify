@@ -20,6 +20,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
+  gem 'launchy'
 end
 
 group :development do
@@ -37,5 +38,6 @@ group :test do
   gem 'database_cleaner'
   gem 'httparty'
   gem 'childprocess'
+  gem 'poltergeist'
 end
 
