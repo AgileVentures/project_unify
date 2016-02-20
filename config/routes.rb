@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   namespace :api do
+    namespace :v1 do
+      resources :users, only: [:index, :show], constraints: { format: /(text|json)/ }
+    end
+
     namespace :v0 do
       resources :ping, only: [:index], constraints: { format: /(text|json)/ }
     end
