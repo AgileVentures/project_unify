@@ -35,7 +35,10 @@ Then /^the index JSON response should show info about:$/ do |table|
     case
       when object == User
         user = User.find_by(user_name: row[:user])
-        objects << {id: user.id, user_name: user.user_name, created_at: user.created_at}
+        objects << {id: user.id,
+                    user_name: user.user_name,
+                    created_at: user.created_at,
+                    profile: api_v1_user_url(user)}
     end
   end
   response_key = table.hashes.first.keys.first.pluralize.to_sym
