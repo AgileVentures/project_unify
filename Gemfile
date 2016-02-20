@@ -21,6 +21,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'faker'
 end
 
 group :development do
