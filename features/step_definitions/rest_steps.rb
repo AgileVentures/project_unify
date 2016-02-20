@@ -38,7 +38,7 @@ Then /^the index JSON response should show info about:$/ do |table|
         objects << {id: user.id,
                     user_name: user.user_name,
                     created_at: user.created_at,
-                    profile: ['http://example.org', api_v1_user_path(user)].join}
+                    profile: api_v1_user_url(user)}
     end
   end
   response_key = table.hashes.first.keys.first.pluralize.to_sym
