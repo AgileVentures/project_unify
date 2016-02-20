@@ -12,6 +12,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'json'
 gem 'godmin'
+gem 'devise'
 
 group :development, :test do
   gem 'pry'
