@@ -11,10 +11,3 @@ Given(/^I fill in the login form with my creadentials$/) do
   fill_in "Password", with: "password"
 end
 
-Given(/^I click "([^"]*)"$/) do |link|
-  click_on link
-end
-
-Then(/^I should see "([^"]*)"$/) do |text|
-  expect(page).to have_content text
-end
