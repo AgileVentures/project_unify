@@ -12,6 +12,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'json'
 gem 'godmin'
+gem 'rack-cors', :require => 'rack/cors'
+
 
 group :development, :test do
   gem 'pry'
