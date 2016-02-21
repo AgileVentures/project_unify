@@ -13,3 +13,6 @@ end
 
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+# Something is setting request.host to 'example.org', so the step definitions
+# need that set too
+Before { host! 'example.org' }

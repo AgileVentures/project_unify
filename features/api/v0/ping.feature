@@ -11,9 +11,3 @@ Feature: Ping
         { "message": "Pong" }
       """
 
-  Scenario: Returning a text response
-    Given: The API is running
-    When the Accept Type is text/plain
-    And the client requests GET /api/v0/ping
-    Then a "200" status code is returned
-    And the response should be: "Pong"
