@@ -72,8 +72,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    childprocess (0.5.9)
-      ffi (~> 1.0, >= 1.0.11)
     cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (4.1.1)
@@ -116,7 +114,6 @@ GEM
     faker (1.6.1)
       i18n (~> 0.5)
     fastercsv (1.5.5)
-    ffi (1.9.10)
     gherkin (3.2.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -134,9 +131,6 @@ GEM
     haml (4.0.7)
       tilt
     highline (1.7.8)
-    httparty (0.13.7)
-      json (~> 1.8)
-      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -161,7 +155,6 @@ GEM
       railties (>= 3.1)
     multi_json (1.11.2)
     multi_test (0.1.2)
-    multi_xml (0.5.5)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
@@ -287,14 +280,12 @@ PLATFORMS
 DEPENDENCIES
   brakeman
   bundler-audit
-  childprocess
   cucumber
   cucumber-rails
   database_cleaner
   factory_girl_rails
   faker
   godmin
-  httparty
   jbuilder (~> 2.0)
   jquery-rails
   json
