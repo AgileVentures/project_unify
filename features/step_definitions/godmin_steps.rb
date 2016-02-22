@@ -44,8 +44,19 @@ And(/^I click on "([^"]*)" for "([^"]*)"$/) do |link, name|
   end
 end
 
-
 And(/^the updated users username is "([^"]*)"$/) do |name|
   @resource.reload
   expect(@resource.user_name).to eq name
+end
+
+Then(/^the updated users skills should be "([^"]*)"$/) do |skills|
+  @resource ? @resource.reload : @resource = User.last
+  skills.split do |skill|
+    expect(@resource.skill_list).to include skill
+  end
+end
+
+Given(/^"([^"]*)" skills are "([^"]*)"$/) do |name, skills|
+  user = User.find_by(user_name: name)
+  user.skill_list.add(skills, parse: true)
 end
