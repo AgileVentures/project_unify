@@ -39,6 +39,8 @@ GEM
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
     addressable (2.4.0)
+    apipie-rails (0.3.6)
+      json
     arel (6.0.3)
     autoprefixer-rails (6.3.3)
       execjs
@@ -281,6 +283,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  apipie-rails
   brakeman
   bundler-audit
   cucumber

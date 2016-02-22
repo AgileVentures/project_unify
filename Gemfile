@@ -12,9 +12,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'json'
 gem 'godmin'
+gem 'apipie-rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'acts-as-taggable-on'
-
 
 group :development, :test do
   gem 'pry'
@@ -30,8 +30,6 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
-
-  # security checking
   gem 'brakeman', require: false
   gem 'bundler-audit', require: false
 end
