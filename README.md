@@ -1,7 +1,29 @@
 # Refugee Tech
-[![Build Status](https://semaphoreci.com/api/v1/agileventures/project_unify/branches/develop/badge.svg)](https://semaphoreci.com/agileventures/project_unify)
+
+
 This repo is for the Back-end Admin interface and API
+
 Mobile client repo: https://github.com/AgileVentures/project_unify_mobile
+
+ Service                 |  Status      |
+|------------------------ | ----------------- |
+| **Test coverage**         |                  |
+| Coveralls                |  Not configured   |
+| **Continuous integration** |    |
+| Semaphore CI (master)       | Not canfigured|
+| Semaphore CI (staging)       | Not configured|
+| Semaphore CI (develop)      | [![Build Status](https://semaphoreci.com/api/v1/agileventures/project_unify/branches/develop/badge.svg)](https://semaphoreci.com/agileventures/project_unify)  |
+| **Code quality**            |         |
+| CodeClimate             | Not configured |
+|**Deploys**                |         |
+| Develop Server           | [unify-develop.herokuapp.com](http://unify-develop.herokuapp.com/) |
+| Staging Server           |Not configured |
+| Production Server        | Not configured |
+|**Project management**       |         |
+|Pivotal Tracker          |[Project Unify](https://www.pivotaltracker.com/n/projects/1525675)|
+|**API Documentation**       |         |
+| V1 Develop | [unify-develop.herokuapp.com/api-doc](http://unify-develop.herokuapp.com/api-doc)
+
 ###Background
 More than 700,000 refugees have made their way across the Mediterranean to Europe. The conflict in Syria continues to be by far the biggest driver of migration. But the ongoing violence in Afghanistan, abuses in Eritrea, as well as poverty in Kosovo and other regional conflicts are also leading people to look for new lives elsewhere. Many of the newly arrived refugees are highly skilled individuals, often with extensive professional experience. Others are young people who, because of war and the risk of persecution, was forced to interrupt their university studies.
 
