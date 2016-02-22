@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'json'
 gem 'godmin'
 gem 'rack-cors', require: 'rack/cors'
+gem 'acts-as-taggable-on'
 
 
 group :development, :test do
