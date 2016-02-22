@@ -37,6 +37,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    apipie-rails (0.3.6)
+      json
     arel (6.0.3)
     autoprefixer-rails (6.3.3)
       execjs
@@ -278,6 +280,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apipie-rails
   brakeman
   bundler-audit
   cucumber
