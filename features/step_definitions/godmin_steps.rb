@@ -63,4 +63,15 @@ end
 Given(/^"([^"]*)" skills are "([^"]*)"$/) do |name, skills|
   user = User.find_by(user_name: name)
   user.skill_list.add(skills, parse: true)
+  user.save
+end
+
+And(/^I delete the content of "([^"]*)"$/) do |label|
+  field_id = page.find_field("#{label}").native.attributes['id'].value
+  page.execute_script("$('#{field_id}').val('');")
+end
+
+Then /^the "([^"]*)" field should( not)? be empty$/ do |field, negate|
+  expectation = negate ? :should_not : :should
+  field_labeled(field).value.send(expectation, be_blank)
 end

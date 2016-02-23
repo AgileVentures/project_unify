@@ -24,11 +24,22 @@ Feature: As a system administrator
     Then I should see "User was successfully created"
     Then the updated users skills should be "java, ruby, html"
 
-  Scenario: Update user
+  Scenario: Update user by adding tags
     Given "Thomas" skills are "rspec, testing"
     And I click on "Edit" for "Thomas"
     And I fill in "Skill list" with "java, ruby, html"
     And I click on "Update User"
     Then I should see "User was successfully updated"
     Then the updated users skills should be "rspec, testing, java, ruby, html"
+
+  @javascript
+  Scenario: Update user by removing
+    Given "Thomas" skills are "rspec, testing"
+    And I click on "Edit" for "Thomas"
+    And I delete the content of "Skill list"
+    Then show me the page
+    And I fill in "Skill list" with "java, ruby, html"
+    And I click on "Update User"
+    Then I should see "User was successfully updated"
+    Then the updated users skills should be "java, ruby, html"
 
