@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+
   apipie
   resources :users
+  resources :tags, as: 'acts_as_taggable_on_tag'
   resource :session, only: [:new, :create, :destroy]
 
   namespace :api do

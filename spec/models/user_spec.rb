@@ -29,6 +29,7 @@ RSpec.describe User, type: :model do
 
     it 'adds multiple skills' do
       user.skill_list.add('java-script', 'ruby', 'dev ops')
+      binding.pry
       expect(user.skill_list).to eq ['java-script', 'ruby', 'dev ops']
     end
   end
