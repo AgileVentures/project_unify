@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   apipie
   resources :users
   resource :session, only: [:new, :create, :destroy]
