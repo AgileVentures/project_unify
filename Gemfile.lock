@@ -132,6 +132,8 @@ GEM
       rails (~> 4.0)
       sass-rails (>= 4.0)
       selectize-rails (~> 0.12.0)
+    godmin-tags (1.0.1)
+      godmin (>= 0.9.7, < 2.0)
     haml (4.0.7)
       tilt
     highline (1.7.8)
@@ -292,6 +294,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   godmin
+  godmin-tags
   jbuilder (~> 2.0)
   jquery-rails
   json

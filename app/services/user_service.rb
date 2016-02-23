@@ -17,6 +17,7 @@ class UserService
   end
 
   def update_resource(resource, params)
+    resource.skill_list.try(:each) {|skill| resource.skill_list.remove(skill)}
     resource.user_name = params[:user_name]
     resource.skill_list.add(params[:skill_list], parse: true)
     resource.save
