@@ -1,3 +1,5 @@
+require 'coveralls'
+Coveralls.wear!
 require 'cucumber/rails'
 require 'capybara/poltergeist'
 

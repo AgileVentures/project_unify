@@ -18,6 +18,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'acts-as-taggable-on'
 
 group :development, :test do
+  gem 'coveralls', require: false
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
