@@ -33,4 +33,21 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'unify' do
+    let(:user_1) {User.create(user_name: 'Thomas')}
+    let(:user_2) {User.create(user_name: 'Anders')}
+
+    before do
+      user_1.skill_list.add('java-script, testing, ruby', parse: true)
+      user_2.skill_list.add('java-script, java, html', parse: true)
+      user_1.save
+      user_2.save
+    end
+
+    it 'unifies by skill' do
+      expect(user_1.unify).to include(user_2)
+    end
+
+  end
+
 end

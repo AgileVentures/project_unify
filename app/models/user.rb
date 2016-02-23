@@ -4,4 +4,9 @@ class User < ActiveRecord::Base
   def to_s
     user_name
   end
+
+  def unify
+    binding.pry
+    self.find_related_skills
+  end
 end
