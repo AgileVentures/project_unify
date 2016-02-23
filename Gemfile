@@ -16,6 +16,7 @@ gem 'apipie-rails'
 gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
+  gem 'coveralls', require: false
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
