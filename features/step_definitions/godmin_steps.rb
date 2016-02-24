@@ -1,6 +1,6 @@
 Given(/^the following users exist$/) do |table|
   table.hashes.each do |hash|
-    FactoryGirl.create(:user, user_name: hash[:user_name])
+    user = FactoryGirl.create(:user, hash)
   end
 end
 
