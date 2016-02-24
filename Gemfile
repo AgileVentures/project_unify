@@ -16,8 +16,10 @@ gem 'godmin-tags'
 gem 'apipie-rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'acts-as-taggable-on'
+gem 'devise'
 
 group :development, :test do
+  gem 'coveralls', require: false
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'

@@ -10,8 +10,13 @@ Feature: As a system administrator
 
   Background:
     Given the following users exist
-      | user_name |
-      | Thomas    |
+      | user_name | email           | password     | password_confirmation |
+      | Thomas    | thomas@mail.com | password1    | password1             |
+    Given the following tags exists
+      | name    |
+      | rspec   |
+      | testing |
+      | html    |
     Given the admin account is set up
     Given I am logged in as admin
     Given I click on "Users"
@@ -19,16 +24,29 @@ Feature: As a system administrator
   Scenario: Create a user
     And I click on "Create User"
     And I fill in "User name" with "Anders"
+    And I fill in "Email" with "anders@anders.com"
+    And I fill in "Password" with "password"
+    And I fill in "Password confirmation" with "password"
     And I fill in "Skill list" with "java, ruby, html"
     And I click on "Create User"
     Then I should see "User was successfully created"
     Then the updated users skills should be "java, ruby, html"
 
-  Scenario: Update user
+  Scenario: Update user by adding tags
     Given "Thomas" skills are "rspec, testing"
     And I click on "Edit" for "Thomas"
     And I fill in "Skill list" with "java, ruby, html"
     And I click on "Update User"
     Then I should see "User was successfully updated"
     Then the updated users skills should be "rspec, testing, java, ruby, html"
+
+  @javascript
+  Scenario: Update skills removing and adding tags
+    Given "Thomas" skills are "testing"
+    And I click on "Edit" for "Thomas"
+    And I delete the content of "user_skill_list"
+    And I set skill tags to "html"
+    And I click on "Update User"
+    Then I should see "User was successfully updated"
+    Then the updated users skills should be "html"
 

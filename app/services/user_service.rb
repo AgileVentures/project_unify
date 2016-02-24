@@ -2,8 +2,8 @@ class UserService
   include Godmin::Resources::ResourceService
 
   attrs_for_index :user_name, :skill_list
-  attrs_for_show :user_name, :skill_list, :created_at
-  attrs_for_form :user_name, :skill_list
+  attrs_for_show :user_name, :email, :skill_list, :created_at
+  attrs_for_form :user_name, :email, :password, :password_confirmation, :skill_list
   filter :user_name
   filter :skill_list
   batch_action :destroy, confirm: true
@@ -17,10 +17,17 @@ class UserService
   end
 
   def update_resource(resource, params)
-    resource.skill_list.try(:each) {|skill| resource.skill_list.remove(skill)}
-    resource.user_name = params[:user_name]
-    resource.skill_list.add(params[:skill_list], parse: true)
-    resource.save
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+    if params[:skill_list]
+      resource.skill_list.try(:each) { |skill| resource.skill_list.remove(skill) }
+      resource.user_name = params[:user_name]
+      resource.skill_list.add(params[:skill_list], parse: true)
+      resource.save
+    end
+    resource.update(params)
   end
 
 end

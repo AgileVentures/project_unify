@@ -1,6 +1,6 @@
 Given(/^the following users exist$/) do |table|
   table.hashes.each do |hash|
-    user = FactoryGirl.create(:user, user_name: hash[:user_name])
+    user = FactoryGirl.create(:user, hash)
     add_skills(user, hash[:skills]) if hash[:skills]
   end
 end
@@ -8,6 +8,12 @@ end
 def add_skills(user, skills)
   user.skill_list.add(skills, parse: true)
   user.save
+end
+
+Given(/^the following tags exists$/) do |table|
+  table.hashes.each do |hash|
+    ActsAsTaggableOn::Tag.create(name: hash[name])
+  end
 end
 
 Given(/^the admin account is set up$/) do
@@ -26,7 +32,6 @@ Given(/^I visit the "([^"]*)" page$/) do |url|
     when 'api-doc'
       visit '/api-doc'
   end
-
 end
 
 Given(/^I click on "([^"]*)"$/) do |link|
@@ -34,13 +39,12 @@ Given(/^I click on "([^"]*)"$/) do |link|
 end
 
 Then(/^I should see "([^"]*)"$/) do |text|
-
+  expect(page).to have_content text
 end
 
 Then(/^I should not see "([^"]*)"$/) do |text|
   expect(page).not_to have_content text
 end
-
 
 And(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field, value|
   fill_in field, with: value
@@ -73,4 +77,18 @@ end
 Given(/^"([^"]*)" skills are "([^"]*)"$/) do |name, skills|
   user = User.find_by(user_name: name)
   user.skill_list.add(skills, parse: true)
+  user.save
+end
+
+And(/^I delete the content of "([^"]*)"$/) do |label|
+  element = page.find("##{label}", visible: false)
+  element.set('')
+end
+
+And(/^I set skill tags to "([^"]*)"$/) do |value|
+  fill_autocomplete(select: value)
+end
+
+def fill_autocomplete(options = {})
+  page.execute_script %Q{$('div.selectize-dropdown.multi.form-control div.selectize-dropdown-content div:contains("#{options[:select]}")').trigger('mouseenter').click();}
 end

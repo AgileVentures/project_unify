@@ -1,6 +1,5 @@
 class Api::V1::UsersController < ApiController
 
-
   api :GET, '/v1/users/', 'List of resources: User'
   formats %w(json)
   description 'Returns a list of registered users with URL\'s to #show for each instance'
