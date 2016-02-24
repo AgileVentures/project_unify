@@ -11,7 +11,7 @@ Feature: As a user
     Given the following users exist
       | user_name | skills                        |
       | Thomas    | programming, cooking, Travels |
-      | Mazen     | travels, sailing              |
+      | Mazen     | sailing                       |
       | Tarek     | Programming, politics         |
       | Ivan      | programming                   |
     Given the admin account is set up
@@ -20,3 +20,9 @@ Feature: As a user
 
   Scenario: Display matches on user#show
     And I click on "Show" for "Thomas"
+    And I click on "Actions"
+    And I click on "Unify"
+    Then I should see "Tarek"
+    And I should see "Ivan"
+    And I should not see "Mazen"
+

@@ -6,7 +6,6 @@ Given(/^the following users exist$/) do |table|
 end
 
 def add_skills(user, skills)
-  binding.pry
   user.skill_list.add(skills, parse: true)
   user.save
 end
@@ -35,7 +34,11 @@ Given(/^I click on "([^"]*)"$/) do |link|
 end
 
 Then(/^I should see "([^"]*)"$/) do |text|
-  expect(page).to have_content text
+
+end
+
+Then(/^I should not see "([^"]*)"$/) do |text|
+  expect(page).not_to have_content text
 end
 
 
