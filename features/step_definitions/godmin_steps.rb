@@ -1,6 +1,6 @@
 Given(/^the following users exist$/) do |table|
   table.hashes.each do |hash|
-    FactoryGirl.create(:user, user_name: hash[:user_name])
+    user = FactoryGirl.create(:user, hash)
   end
 end
 
@@ -26,7 +26,6 @@ Given(/^I visit the "([^"]*)" page$/) do |url|
     when 'api-doc'
       visit '/api-doc'
   end
-
 end
 
 Given(/^I click on "([^"]*)"$/) do |link|
