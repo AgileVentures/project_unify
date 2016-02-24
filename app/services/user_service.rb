@@ -17,16 +17,16 @@ class UserService
   end
 
   def update_resource(resource, params)
-    if params[:password].blank? 
+    if params[:password].blank?
       params.delete(:password)
       params.delete(:password_confirmation)
     end
     if params[:skill_list]
-    resource.skill_list.try(:each) {|skill| resource.skill_list.remove(skill)}
-    resource.user_name = params[:user_name]
-    resource.skill_list.add(params[:skill_list], parse: true)
-    resource.save
-      end
+      resource.skill_list.try(:each) { |skill| resource.skill_list.remove(skill) }
+      resource.user_name = params[:user_name]
+      resource.skill_list.add(params[:skill_list], parse: true)
+      resource.save
+    end
     resource.update(params)
   end
 

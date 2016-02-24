@@ -10,8 +10,8 @@ Feature: As a system administrator
 
   Background:
     Given the following users exist
-      | user_name |
-      | Thomas    |
+      | user_name | email           | password     | password_confirmation |
+      | Thomas    | thomas@mail.com | password1    | password1             |
     Given the following tags exists
       | name    |
       | rspec   |
@@ -24,6 +24,9 @@ Feature: As a system administrator
   Scenario: Create a user
     And I click on "Create User"
     And I fill in "User name" with "Anders"
+    And I fill in "Email" with "anders@anders.com"
+    And I fill in "Password" with "password"
+    And I fill in "Password confirmation" with "password"
     And I fill in "Skill list" with "java, ruby, html"
     And I click on "Create User"
     Then I should see "User was successfully created"
