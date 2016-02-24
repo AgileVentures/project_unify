@@ -4,6 +4,12 @@ Given(/^the following users exist$/) do |table|
   end
 end
 
+Given(/^the following tags exists$/) do |table|
+  table.hashes.each do |hash|
+    ActsAsTaggableOn::Tag.create(name: hash[name])
+  end
+end
+
 Given(/^the admin account is set up$/) do
   AdminUser.create!(email: 'admin@admin.com', password: 'password')
 end
@@ -58,6 +64,7 @@ Then(/^the updated users skills should be "([^"]*)"$/) do |skills|
   skills.split do |skill|
     expect(@resource.skill_list).to include skill
   end
+  binding.pry
 end
 
 Given(/^"([^"]*)" skills are "([^"]*)"$/) do |name, skills|
@@ -67,11 +74,14 @@ Given(/^"([^"]*)" skills are "([^"]*)"$/) do |name, skills|
 end
 
 And(/^I delete the content of "([^"]*)"$/) do |label|
-  field_id = page.find_field("#{label}").native.attributes['id'].value
-  page.execute_script("$('#{field_id}').val('');")
+  element = page.find("##{label}", visible: false)
+  element.set('')
 end
 
-Then /^the "([^"]*)" field should( not)? be empty$/ do |field, negate|
-  expectation = negate ? :should_not : :should
-  field_labeled(field).value.send(expectation, be_blank)
+And(/^I set skill tags to "([^"]*)"$/) do |value|
+  fill_autocomplete(select: value)
+end
+
+def fill_autocomplete(options = {})
+  page.execute_script %Q{$('div.selectize-dropdown.multi.form-control div.selectize-dropdown-content div:contains("#{options[:select]}")').trigger('mouseenter').click();}
 end

@@ -12,6 +12,11 @@ Feature: As a system administrator
     Given the following users exist
       | user_name |
       | Thomas    |
+    Given the following tags exists
+      | name    |
+      | rspec   |
+      | testing |
+      | html    |
     Given the admin account is set up
     Given I am logged in as admin
     Given I click on "Users"
@@ -33,13 +38,12 @@ Feature: As a system administrator
     Then the updated users skills should be "rspec, testing, java, ruby, html"
 
   @javascript
-  Scenario: Update user by removing
-    Given "Thomas" skills are "rspec, testing"
+  Scenario: Update skills removing and adding tags
+    Given "Thomas" skills are "testing"
     And I click on "Edit" for "Thomas"
-    And I delete the content of "Skill list"
-    Then show me the page
-    And I fill in "Skill list" with "java, ruby, html"
+    And I delete the content of "user_skill_list"
+    And I set skill tags to "html"
     And I click on "Update User"
     Then I should see "User was successfully updated"
-    Then the updated users skills should be "java, ruby, html"
+    Then the updated users skills should be "html"
 
