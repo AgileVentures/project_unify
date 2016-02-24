@@ -64,7 +64,6 @@ Then(/^the updated users skills should be "([^"]*)"$/) do |skills|
   skills.split do |skill|
     expect(@resource.skill_list).to include skill
   end
-  binding.pry
 end
 
 Given(/^"([^"]*)" skills are "([^"]*)"$/) do |name, skills|
