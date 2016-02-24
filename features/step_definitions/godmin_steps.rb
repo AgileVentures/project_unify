@@ -1,7 +1,14 @@
 Given(/^the following users exist$/) do |table|
   table.hashes.each do |hash|
-    FactoryGirl.create(:user, user_name: hash[:user_name])
+    user = FactoryGirl.create(:user, user_name: hash[:user_name])
+    add_skills(user, hash[:skills]) if hash[:skills]
   end
+end
+
+def add_skills(user, skills)
+  binding.pry
+  user.skill_list.add(skills, parse: true)
+  user.save
 end
 
 Given(/^the admin account is set up$/) do
