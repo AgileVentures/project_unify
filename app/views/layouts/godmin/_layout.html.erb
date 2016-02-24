@@ -7,8 +7,12 @@
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= yield :head %>
+    <img src="/logo.jpg" alt="logo" />
   </head>
   <body>
     <%= yield :body %>
+    <% content_for :body do %>
+      <text>this is a test</text>
+    <% end %>
   </body>
 </html>
