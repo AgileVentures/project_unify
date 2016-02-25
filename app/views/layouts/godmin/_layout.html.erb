@@ -16,13 +16,14 @@
 <script>
   $(document).ready(function () {
     fixedFooter(); //at page load
-    $( ".widget h2" ).click(
-        function() {
+    $(".widget h2").click(
+        function () {
           $(this).parent().toggleClass('active');
         }
     );
 
   });
+
   $(window).resize(function () {
     fixedFooter(); //at page resize
   });
