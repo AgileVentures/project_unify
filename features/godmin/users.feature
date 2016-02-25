@@ -19,7 +19,6 @@ Feature: As a system admin
     And I should see "Tarek"
     And I should see "Ivan"
 
-  @javascript
   Scenario: View user
     And I click on "Show" for "Mazen"
     Then I should see "Mazen"
