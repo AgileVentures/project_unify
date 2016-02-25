@@ -55,9 +55,9 @@ RSpec.describe User, type: :model do
   end
 
   describe 'unify' do
-    let(:user_1) {User.create(user_name: 'Thomas')}
-    let(:user_2) {User.create(user_name: 'Anders')}
-    let(:user_3) {User.create(user_name: 'Kalle')}
+    let(:user_1) {FactoryGirl.create(:user, user_name: 'Thomas')}
+    let(:user_2) {FactoryGirl.create(:user, user_name: 'Anders')}
+    let(:user_3) {FactoryGirl.create(:user, user_name: 'Kalle')}
 
     before do
       user_1.skill_list.add('java-script, testing, ruby', parse: true)
@@ -65,6 +65,7 @@ RSpec.describe User, type: :model do
       user_3.skill_list.add('java, html', parse: true)
       user_1.save
       user_2.save
+      user_3.save
     end
 
     it 'unifies by skill' do
