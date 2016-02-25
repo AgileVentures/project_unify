@@ -10,6 +10,8 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :id }
     it { is_expected.to have_db_column :user_name }
     it { is_expected.to have_db_column :email }
+    it { is_expected.to respond_to :mentor }
+
   end
 
   it { is_expected.to respond_to :password }
@@ -37,13 +39,6 @@ RSpec.describe User, type: :model do
     it 'should have valid Fixture Factory' do
       expect(FactoryGirl.create(:user)).to be_valid
     end
-
-  end
-
-  describe 'is a mentor' do
-
-    it { is_expected.to respond_to :mentor }
-    it { is_expected.to respond_to :mentor? }
 
   end
 
@@ -89,14 +84,10 @@ RSpec.describe User, type: :model do
     let(:user_4) { FactoryGirl.create(:user, user_name: 'Sam', mentor: true) }
 
     before do
-      user_1.skill_list.add('java-script, testing, ruby', parse: true)
-      user_2.skill_list.add('java-script, java, html', parse: true)
-      user_3.skill_list.add('java, html', parse: true)
-      user_4.skill_list.add('testing, ruby', parse: true)
-      user_1.save
-      user_2.save
-      user_3.save
-      user_4.save
+      user_1.update(skill_list: 'java-script, testing, ruby')
+      user_2.update(skill_list: 'java-script, java, html')
+      user_3.update(skill_list: 'java, html')
+      user_4.update(skill_list: 'testing, ruby')
     end
 
     it 'unifies mentors to mentorees by skill' do

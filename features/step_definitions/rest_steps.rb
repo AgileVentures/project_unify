@@ -43,5 +43,6 @@ end
 
 And(/^the unify JSON response should show info about:$/) do |table|
   matches = JSON.parse(@last_response.body)['matches'].map { |user| user['user']['user_name'] }
+  matches.sort! { |a,b| a.user_name.downcase <=> b.user_name.downcase }
   expect(matches).to eq table.hashes.map { |hash| hash['matches'] }
 end
