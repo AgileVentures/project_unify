@@ -9,11 +9,12 @@ Feature: As a user
 
   Background:
     Given the following users exist
-      | user_name | skills                        |
-      | Thomas    | programming, cooking, Travels |
-      | Mazen     | sailing                       |
-      | Tarek     | Programming, politics         |
-      | Ivan      | programming                   |
+      | user_name | skills                        | mentor |
+      | Thomas    | programming, cooking, Travels | true   |
+      | Sam       | programming                   | true   |
+      | Mazen     | sailing                       | false  |
+      | Tarek     | Programming, politics         | false  |
+      | Ivan      | programming                   | false  |
     Given the admin account is set up
     Given I am logged in as admin
     Given I click on "Users"
@@ -30,4 +31,5 @@ Feature: As a user
     Then I should see "Tarek"
     And I should see "Ivan"
     And I should not see "Mazen"
+    And I should not see "Sam"
 

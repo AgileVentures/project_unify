@@ -12,6 +12,6 @@ class User < ActiveRecord::Base
   end
 
   def unify
-    self.find_related_skills
+    self.mentor ? self.find_related_skills.mentorees : self.find_related_skills
   end
 end
