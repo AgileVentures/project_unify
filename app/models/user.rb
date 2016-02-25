@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   def to_s
     user_name
   end
+
+  def unify
+    self.find_related_skills
+  end
 end

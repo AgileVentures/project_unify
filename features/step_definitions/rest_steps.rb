@@ -41,3 +41,7 @@ Then /^the index JSON response should show info about:$/ do |table|
 
 end
 
+And(/^the unify JSON response should show info about:$/) do |table|
+  matches = JSON.parse(@last_response.body)['matches'].map { |user| user['user']['user_name'] }
+  expect(matches).to eq table.hashes.map { |hash| hash['matches'] }
+end

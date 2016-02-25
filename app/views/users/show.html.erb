@@ -1,0 +1,23 @@
+<%= render template: 'godmin/resource/show' %>
+
+<div id="unify"></div>
+
+<script>
+  $(document).ready(function () {
+    $('#unify_link').click(function () {
+      $.getJSON('<%= api_v1_unify_path %>', function (response) {
+        displayMatches(response);
+      });
+    });
+  });
+
+  function displayMatches(json) {
+    $('#unify').html('<h4>Matches for ' + json.user.user_name + '</h4>');
+    $.each(json.matches, function (i, val) {
+      $('#unify').append('</p><a href="' + val.user.profile + '">' + val.user.user_name + '</a><br />');
+      $.each(val.user.skills, function (i, skill) {
+        $('#unify').append(skill + ' ');
+      });
+    });
+  }
+</script>

@@ -1,7 +1,13 @@
 Given(/^the following users exist$/) do |table|
   table.hashes.each do |hash|
-    user = FactoryGirl.create(:user, hash)
+    user = FactoryGirl.create(:user, hash.except('skills'))
+    add_skills(user, hash[:skills]) if hash[:skills]
   end
+end
+
+def add_skills(user, skills)
+  user.skill_list.add(skills, parse: true)
+  user.save
 end
 
 Given(/^the following tags exists$/) do |table|
@@ -36,6 +42,9 @@ Then(/^I should see "([^"]*)"$/) do |text|
   expect(page).to have_content text
 end
 
+Then(/^I should not see "([^"]*)"$/) do |text|
+  expect(page).not_to have_content text
+end
 
 And(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field, value|
   fill_in field, with: value
@@ -82,4 +91,8 @@ end
 
 def fill_autocomplete(options = {})
   page.execute_script %Q{$('div.selectize-dropdown.multi.form-control div.selectize-dropdown-content div:contains("#{options[:select]}")').trigger('mouseenter').click();}
+end
+
+Then(/^I should not see the link "([^"]*)"$/) do |link|
+  expect(page).not_to have_link link, exact: true
 end
