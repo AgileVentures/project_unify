@@ -40,6 +40,13 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe 'is a mentor' do
+
+    it { is_expected.to respond_to :mentor }
+    it { is_expected.to respond_to :mentor? }
+
+  end
+
   describe 'scopes' do
     let(:user_1) { create(:user, mentor: true) }
     let(:user_2) { create(:user, mentor: true) }
@@ -75,35 +82,39 @@ RSpec.describe User, type: :model do
   end
 
   describe 'unify' do
-    let(:user_1) { FactoryGirl.create(:user, user_name: 'Thomas') }
+
+    let(:user_1) { FactoryGirl.create(:user, user_name: 'Thomas', mentor: true) }
     let(:user_2) { FactoryGirl.create(:user, user_name: 'Anders') }
     let(:user_3) { FactoryGirl.create(:user, user_name: 'Kalle') }
+    let(:user_4) { FactoryGirl.create(:user, user_name: 'Sam', mentor: true) }
 
     before do
       user_1.skill_list.add('java-script, testing, ruby', parse: true)
       user_2.skill_list.add('java-script, java, html', parse: true)
       user_3.skill_list.add('java, html', parse: true)
+      user_4.skill_list.add('testing, ruby', parse: true)
       user_1.save
       user_2.save
       user_3.save
+      user_4.save
     end
 
-    it 'unifies by skill' do
+    it 'unifies mentors to mentorees by skill' do
       expect(user_1.unify).to include(user_2)
     end
 
-    it 'does not unify if no common skill' do
-      expect(user_1.unify).not_to include(user_3)
+    it 'does not unify mentors to mentorees if no common skill' do
+      expect(user_1.unify).not_to include(user_3, user_4)
+    end
+
+    it 'unifies mentorees to mentors and mentorees by skill' do
+      expect(user_2.unify).to include(user_3, user_1)
+    end
+
+    it 'does not unify mentors to mentors and mentorees if no common skill' do
+      expect(user_2.unify).not_to include(user_4)
     end
 
   end
-
-  describe 'is a mentor' do
-
-    it { is_expected.to respond_to :mentor }
-    it { is_expected.to respond_to :mentor? }
-
-  end
-
 
 end
