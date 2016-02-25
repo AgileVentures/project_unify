@@ -3,6 +3,10 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  scope :mentors, -> { where(mentor: true) }
+  scope :mentorees, -> { where(mentor: false) }
+
   def to_s
     user_name
   end

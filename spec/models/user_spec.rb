@@ -5,29 +5,29 @@ RSpec.describe User, type: :model do
   it 'should be of class User' do
     expect(subject.class).to eq User
   end
-  
+
   describe 'Database table' do
     it { is_expected.to have_db_column :id }
     it { is_expected.to have_db_column :user_name }
     it { is_expected.to have_db_column :email }
   end
-  
+
   it { is_expected.to respond_to :password }
   it { is_expected.to respond_to :password_confirmation }
   it { is_expected.not_to allow_value("").for(:password) }
   it { is_expected.not_to allow_value("").for(:email) }
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_confirmation_of(:password) }
-  
+
   describe 'should not have an invalid email address' do
-    emails = ['asdf@ ds.com', '@example.com', 'test me @yahoo.com', 'asdf@example', 'ddd@.d. .d', 'ddd@.d' ]
+    emails = ['asdf@ ds.com', '@example.com', 'test me @yahoo.com', 'asdf@example', 'ddd@.d. .d', 'ddd@.d']
     emails.each do |email|
       it { is_expected.not_to allow_value(email).for(:email) }
     end
   end
 
   describe 'should have a valid email address' do
-    emails = ['asdf@ds.com', 'hello@example.uk', 'test1234@yahoo.si', 'asdf@example.eu' ]
+    emails = ['asdf@ds.com', 'hello@example.uk', 'test1234@yahoo.si', 'asdf@example.eu']
     emails.each do |email|
       it { is_expected.to allow_value(email).for(:email) }
     end
@@ -40,8 +40,28 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe 'scopes' do
+    let(:user_1) { create(:user, mentor: true) }
+    let(:user_2) { create(:user, mentor: true) }
+    let(:user_3) { create(:user, mentor: false) }
+    let(:user_4) { create(:user, mentor: false) }
+    let(:user_5) { create(:user, mentor: false) }
+
+    it '#mentors returns mentors' do
+      expect(User.mentors).to include(user_1, user_2)
+      expect(User.mentors).not_to include(user_3, user_4, user_5)
+    end
+
+    it '#mentorees returns non mentors' do
+      expect(User.mentorees).to include(user_3, user_4, user_5)
+      expect(User.mentorees).not_to include(user_1, user_2)
+    end
+
+  end
+
+
   describe 'Skills tags' do
-    let(:user) {create(:user)}
+    let(:user) { create(:user) }
 
     it 'adds a single skill' do
       user.skill_list.add('java-script')
@@ -55,9 +75,9 @@ RSpec.describe User, type: :model do
   end
 
   describe 'unify' do
-    let(:user_1) {FactoryGirl.create(:user, user_name: 'Thomas')}
-    let(:user_2) {FactoryGirl.create(:user, user_name: 'Anders')}
-    let(:user_3) {FactoryGirl.create(:user, user_name: 'Kalle')}
+    let(:user_1) { FactoryGirl.create(:user, user_name: 'Thomas') }
+    let(:user_2) { FactoryGirl.create(:user, user_name: 'Anders') }
+    let(:user_3) { FactoryGirl.create(:user, user_name: 'Kalle') }
 
     before do
       user_1.skill_list.add('java-script, testing, ruby', parse: true)
@@ -77,5 +97,13 @@ RSpec.describe User, type: :model do
     end
 
   end
+
+  describe 'is a mentor' do
+
+    it { is_expected.to respond_to :mentor }
+    it { is_expected.to respond_to :mentor? }
+
+  end
+
 
 end
