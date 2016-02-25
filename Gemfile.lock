@@ -36,6 +36,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (3.5.0)
+      activerecord (>= 3.2, < 5)
     addressable (2.4.0)
     apipie-rails (0.3.6)
       json
@@ -144,6 +146,8 @@ GEM
       rails (~> 4.0)
       sass-rails (>= 4.0)
       selectize-rails (~> 0.12.0)
+    godmin-tags (1.0.1)
+      godmin (>= 0.9.7, < 2.0)
     haml (4.0.7)
       tilt
     highline (1.7.8)
@@ -307,6 +311,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-taggable-on
   apipie-rails
   brakeman
   bundler-audit
@@ -318,6 +323,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   godmin
+  godmin-tags
   jbuilder (~> 2.0)
   jquery-rails
   json

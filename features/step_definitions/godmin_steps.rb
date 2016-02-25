@@ -4,6 +4,12 @@ Given(/^the following users exist$/) do |table|
   end
 end
 
+Given(/^the following tags exists$/) do |table|
+  table.hashes.each do |hash|
+    ActsAsTaggableOn::Tag.create(name: hash[name])
+  end
+end
+
 Given(/^the admin account is set up$/) do
   AdminUser.create!(email: 'admin@admin.com', password: 'password')
 end
@@ -20,7 +26,6 @@ Given(/^I visit the "([^"]*)" page$/) do |url|
     when 'api-doc'
       visit '/api-doc'
   end
-
 end
 
 Given(/^I click on "([^"]*)"$/) do |link|
@@ -48,8 +53,33 @@ And(/^I click on "([^"]*)" for "([^"]*)"$/) do |link, name|
   end
 end
 
-
 And(/^the updated users username is "([^"]*)"$/) do |name|
   @resource.reload
   expect(@resource.user_name).to eq name
+end
+
+Then(/^the updated users skills should be "([^"]*)"$/) do |skills|
+  @resource ? @resource.reload : @resource = User.last
+  skills.split do |skill|
+    expect(@resource.skill_list).to include skill
+  end
+end
+
+Given(/^"([^"]*)" skills are "([^"]*)"$/) do |name, skills|
+  user = User.find_by(user_name: name)
+  user.skill_list.add(skills, parse: true)
+  user.save
+end
+
+And(/^I delete the content of "([^"]*)"$/) do |label|
+  element = page.find("##{label}", visible: false)
+  element.set('')
+end
+
+And(/^I set skill tags to "([^"]*)"$/) do |value|
+  fill_autocomplete(select: value)
+end
+
+def fill_autocomplete(options = {})
+  page.execute_script %Q{$('div.selectize-dropdown.multi.form-control div.selectize-dropdown-content div:contains("#{options[:select]}")').trigger('mouseenter').click();}
 end

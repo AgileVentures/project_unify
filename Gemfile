@@ -12,8 +12,10 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'json'
 gem 'godmin'
+gem 'godmin-tags'
 gem 'apipie-rails'
 gem 'rack-cors', require: 'rack/cors'
+gem 'acts-as-taggable-on'
 gem 'devise'
 
 group :development, :test do

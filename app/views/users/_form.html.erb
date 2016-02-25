@@ -1,0 +1,10 @@
+
+<%= form_for(@resource) do |f| %>
+  <%= f.text_field :user_name %>
+  <%= f.text_field :email %>
+  <%= f.text_field :password %>
+  <%= f.text_field :password_confirmation %>
+  <%= f.tags_field :skill_list, data: { collection: ActsAsTaggableOn::Tag.all.pluck(:name) } %>
+  <%= f.submit %>
+
+<% end %>
