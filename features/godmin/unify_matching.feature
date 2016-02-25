@@ -18,6 +18,11 @@ Feature: As a user
     Given I am logged in as admin
     Given I click on "Users"
 
+  Scenario: Hide Unify link on users#edit
+    Given I click on "Edit" for "Thomas"
+    And I click on "Actions"
+    Then I should not see the link "Unify"
+
   Scenario: Display matches on user#show
     And I click on "Show" for "Thomas"
     And I click on "Actions"

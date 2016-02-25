@@ -92,3 +92,7 @@ end
 def fill_autocomplete(options = {})
   page.execute_script %Q{$('div.selectize-dropdown.multi.form-control div.selectize-dropdown-content div:contains("#{options[:select]}")').trigger('mouseenter').click();}
 end
+
+Then(/^I should not see the link "([^"]*)"$/) do |link|
+  expect(page).not_to have_link link, exact: true
+end

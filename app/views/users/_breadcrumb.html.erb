@@ -1,6 +1,6 @@
 <div id="breadcrumb">
   <ol class="breadcrumb">
-    <% if action_name == "index" %>
+    <% if action_name == 'index' %>
       <li class="active">
         <%= @resource_class.model_name.human(count: 2) %>
       </li>
@@ -10,7 +10,7 @@
       </li>
       <li class="active">
         <% if @resource.new_record? %>
-          <%= t("helpers.submit.create", model: @resource_class.model_name.human) %>
+          <%= t('helpers.submit.create', model: @resource_class.model_name.human) %>
         <% else %>
           <%= @resource.to_s %>
         <% end %>
@@ -18,28 +18,30 @@
       <% if @resource.persisted? %>
         <li class="dropdown pull-right">
           <a href="#" data-toggle="dropdown" role="button">
-            <%= translate_scoped("actions.label") %> <span class="caret"></span>
+            <%= translate_scoped('actions.label') %> <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <% if policy(@resource).show? && action_name != "show" %>
+            <% if policy(@resource).show? && action_name != 'show' %>
               <li>
-                <%= link_to translate_scoped("actions.show"), @resource %>
+                <%= link_to translate_scoped('actions.show'), @resource %>
               </li>
             <% end %>
-            <% if policy(@resource).edit? && action_name != "edit" %>
+            <% if policy(@resource).edit? && action_name != 'edit' %>
               <li>
-                <%= link_to translate_scoped("actions.edit"), [:edit, @resource]  %>
+                <%= link_to translate_scoped('actions.edit'), [:edit, @resource] %>
               </li>
             <% end %>
             <% if policy(@resource).destroy? %>
               <li>
-                <%= link_to translate_scoped("actions.destroy"), @resource, method: :delete,
-                            data: { confirm: translate_scoped("actions.confirm_message") } %>
+                <%= link_to translate_scoped('actions.destroy'), @resource, method: :delete,
+                            data: {confirm: translate_scoped('actions.confirm_message')} %>
               </li>
             <% end %>
-            <li>
-              <%= link_to 'Unify', '#', id: 'unify_link' %>
-            </li>
+            <% if action_name == 'show' %>
+              <li>
+                <%= link_to 'Unify', '#', id: 'unify_link' %>
+              </li>
+            <% end %>
           </ul>
         </li>
       <% end %>
