@@ -1,9 +1,9 @@
 class UserService
   include Godmin::Resources::ResourceService
 
-  attrs_for_index :user_name, :skill_list
-  attrs_for_show :user_name, :email, :skill_list, :created_at
-  attrs_for_form :user_name, :email, :password, :password_confirmation, :skill_list
+  attrs_for_index :user_name, :mentor, :skill_list
+  attrs_for_show :user_name, :mentor, :email, :skill_list, :created_at
+  attrs_for_form :user_name, :email, :mentor, :password, :password_confirmation, :skill_list
   filter :user_name
   filter :skill_list
   batch_action :destroy, confirm: true
