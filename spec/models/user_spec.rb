@@ -72,9 +72,13 @@ RSpec.describe User, type: :model do
         expect(User.all).not_to include(user_1)
       end
 
-      it '#private returns profiles with private matked true' do
+      it '#private returns profiles with private marked true' do
         expect(User.private_profiles).to include(user_1)
         expect(User.private_profiles).not_to include(user_2)
+      end
+
+      it '#all_profiles returns all profiles' do
+        expect(User.all_profiles).to include(user_1, user_2)
       end
     end
 

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   default_scope { where(private: false) }
   scope :private_profiles, -> { unscoped.where(private: true) }
+  scope :all_profiles, -> { unscoped }
   scope :mentors, -> { where(mentor: true) }
   scope :mentorees, -> { where(mentor: false) }
 

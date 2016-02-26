@@ -24,4 +24,8 @@ class UserService
     resource.update(params)
   end
 
+  def resources(params)
+    super(params).all_profiles
+  end
+
 end
