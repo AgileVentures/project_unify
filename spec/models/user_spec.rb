@@ -11,6 +11,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :user_name }
     it { is_expected.to have_db_column :email }
     it { is_expected.to respond_to :mentor }
+    it { is_expected.to respond_to :private }
 
   end
 
