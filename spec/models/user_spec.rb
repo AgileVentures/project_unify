@@ -109,4 +109,19 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe 'friendly_id' do
+    let(:user_1) { FactoryGirl.create(:user, user_name: 'Thomas') }
+    let(:user_2) { FactoryGirl.create(:user, user_name: 'A N Other') }
+
+    it 'retrieves the correct slug for user with no spaces in name' do
+      expect(user_1.friendly_id).to eq("thomas")
+    end
+
+    it 'retrieves the correct slug for user with spaces in name' do
+      expect(user_2.friendly_id).to eq("a-n-other")
+    end
+
+
+  end
+
 end
