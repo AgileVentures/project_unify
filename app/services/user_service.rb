@@ -23,7 +23,7 @@ class UserService
     end
     resource.update(params)
   end
-  
+
   def resources_relation
     super.all_profiles
   end

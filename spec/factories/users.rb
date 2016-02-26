@@ -5,5 +5,6 @@ FactoryGirl.define do
     password "password"
     password_confirmation "password"
     mentor false
+    private false
   end
 end
