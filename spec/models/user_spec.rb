@@ -44,20 +44,38 @@ RSpec.describe User, type: :model do
   end
 
   describe 'scopes' do
-    let(:user_1) { create(:user, mentor: true) }
-    let(:user_2) { create(:user, mentor: true) }
-    let(:user_3) { create(:user, mentor: false) }
-    let(:user_4) { create(:user, mentor: false) }
-    let(:user_5) { create(:user, mentor: false) }
+    describe 'mentors & mentorees' do
+      let(:user_1) { create(:user, mentor: true) }
+      let(:user_2) { create(:user, mentor: true) }
+      let(:user_3) { create(:user, mentor: false) }
+      let(:user_4) { create(:user, mentor: false) }
+      let(:user_5) { create(:user, mentor: false) }
 
-    it '#mentors returns mentors' do
-      expect(User.mentors).to include(user_1, user_2)
-      expect(User.mentors).not_to include(user_3, user_4, user_5)
+      it '#mentors returns mentors' do
+        expect(User.mentors).to include(user_1, user_2)
+        expect(User.mentors).not_to include(user_3, user_4, user_5)
+      end
+
+      it '#mentorees returns non mentors' do
+        expect(User.mentorees).to include(user_3, user_4, user_5)
+        expect(User.mentorees).not_to include(user_1, user_2)
+      end
     end
 
-    it '#mentorees returns non mentors' do
-      expect(User.mentorees).to include(user_3, user_4, user_5)
-      expect(User.mentorees).not_to include(user_1, user_2)
+
+    describe 'private profile' do
+      let(:user_1) { create(:user, private: true) }
+      let(:user_2) { create(:user, private: false) }
+
+      it 'default scope returns profiles NOT marked private' do
+        expect(User.all).to include(user_2)
+        expect(User.all).not_to include(user_1)
+      end
+
+      it '#private returns profiles with private matked true' do
+        expect(User.private_profiles).to include(user_1)
+        expect(User.private_profiles).not_to include(user_2)
+      end
     end
 
   end

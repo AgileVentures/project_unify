@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  default_scope { where(private: false) }
+  scope :private_profiles, -> { unscoped.where(private: true) }
   scope :mentors, -> { where(mentor: true) }
   scope :mentorees, -> { where(mentor: false) }
 
