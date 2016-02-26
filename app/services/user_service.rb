@@ -1,9 +1,9 @@
 class UserService
   include Godmin::Resources::ResourceService
 
-  attrs_for_index :user_name, :mentor, :skill_list
-  attrs_for_show :user_name, :mentor, :email, :skill_list, :created_at
-  attrs_for_form :user_name, :email, :mentor, :password, :password_confirmation, :skill_list
+  attrs_for_index :user_name, :mentor, :private, :skill_list
+  attrs_for_show :user_name, :mentor, :private, :email, :skill_list, :created_at
+  attrs_for_form :user_name, :email, :mentor, :private, :password, :password_confirmation, :skill_list
   filter :user_name
   filter :skill_list
   batch_action :destroy, confirm: true
@@ -23,9 +23,11 @@ class UserService
     end
     resource.update(params)
   end
-
-  def resources(params)
-    super(params).all_profiles
+  
+  def resources_relation
+    super.all_profiles
   end
+
+
 
 end
