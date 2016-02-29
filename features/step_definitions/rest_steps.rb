@@ -1,14 +1,8 @@
-# There has to be a better way to do this - I really want the values from the start_app.rb file
-host = ENV['IP'] || 'localhost'
-port = ENV['PORT'] || '9999'
-url = "http://#{host}:#{port}"
-
 When(/^the Accept Type is (.*)/) do |accept_type|
   @accept_type = accept_type
 end
 
 When /^the client requests GET (.*)$/ do |path|
-  #@last_response = HTTParty.get("#{Config.apiUri}#{path}", headers: { 'Accept' => @accept_type || 'application/json' })
   @last_response = get path, headers: {'Accept' => @accept_type}
 end
 
@@ -38,7 +32,7 @@ Then /^the index JSON response should show info about:$/ do |table|
         objects << {id: user.id,
                     user_name: user.user_name,
                     created_at: user.created_at,
-                    profile: ['http://example.org', api_v1_user_path(user)].join}
+                    profile: api_v1_user_url(user)}
     end
   end
   response_key = table.hashes.first.keys.first.pluralize.to_sym
@@ -47,3 +41,7 @@ Then /^the index JSON response should show info about:$/ do |table|
 
 end
 
+And(/^the unify JSON response should show info about:$/) do |table|
+  matches = JSON.parse(@last_response.body)['matches'].map { |user| user['user']['user_name'] }
+  expect(matches).to match_array table.hashes.map { |hash| hash['matches'] }
+end

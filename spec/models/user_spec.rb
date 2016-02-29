@@ -9,12 +9,124 @@ RSpec.describe User, type: :model do
   describe 'Database table' do
     it { is_expected.to have_db_column :id }
     it { is_expected.to have_db_column :user_name }
+    it { is_expected.to have_db_column :email }
+    it { is_expected.to respond_to :mentor }
+    it { is_expected.to respond_to :private }
+
   end
 
+  it { is_expected.to respond_to :password }
+  it { is_expected.to respond_to :password_confirmation }
+  it { is_expected.not_to allow_value("").for(:password) }
+  it { is_expected.not_to allow_value("").for(:email) }
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_confirmation_of(:password) }
+
+  describe 'should not have an invalid email address' do
+    emails = ['asdf@ ds.com', '@example.com', 'test me @yahoo.com', 'asdf@example', 'ddd@.d. .d', 'ddd@.d']
+    emails.each do |email|
+      it { is_expected.not_to allow_value(email).for(:email) }
+    end
+  end
+
+  describe 'should have a valid email address' do
+    emails = ['asdf@ds.com', 'hello@example.uk', 'test1234@yahoo.si', 'asdf@example.eu']
+    emails.each do |email|
+      it { is_expected.to allow_value(email).for(:email) }
+    end
+  end
   describe 'Fixtures' do
 
     it 'should have valid Fixture Factory' do
       expect(FactoryGirl.create(:user)).to be_valid
+    end
+
+  end
+
+  describe 'scopes' do
+    describe 'mentors & mentorees' do
+      let(:user_1) { create(:user, mentor: true) }
+      let(:user_2) { create(:user, mentor: true) }
+      let(:user_3) { create(:user, mentor: false) }
+      let(:user_4) { create(:user, mentor: false) }
+      let(:user_5) { create(:user, mentor: false) }
+
+      it '#mentors returns mentors' do
+        expect(User.mentors).to include(user_1, user_2)
+        expect(User.mentors).not_to include(user_3, user_4, user_5)
+      end
+
+      it '#mentorees returns non mentors' do
+        expect(User.mentorees).to include(user_3, user_4, user_5)
+        expect(User.mentorees).not_to include(user_1, user_2)
+      end
+    end
+
+
+    describe 'private profile' do
+      let(:user_1) { create(:user, private: true) }
+      let(:user_2) { create(:user, private: false) }
+
+      it 'default scope returns profiles NOT marked private' do
+        expect(User.all).to include(user_2)
+        expect(User.all).not_to include(user_1)
+      end
+
+      it '#private returns profiles with private marked true' do
+        expect(User.private_profiles).to include(user_1)
+        expect(User.private_profiles).not_to include(user_2)
+      end
+
+      it '#all_profiles returns all profiles' do
+        expect(User.all_profiles).to include(user_1, user_2)
+      end
+    end
+
+  end
+
+
+  describe 'Skills tags' do
+    let(:user) { create(:user) }
+
+    it 'adds a single skill' do
+      user.skill_list.add('java-script')
+      expect(user.skill_list).to include /java-script/
+    end
+
+    it 'adds multiple skills' do
+      user.skill_list.add('java-script', 'ruby', 'dev ops')
+      expect(user.skill_list).to eq ['java-script', 'ruby', 'dev ops']
+    end
+  end
+
+  describe 'unify' do
+
+    let(:user_1) { FactoryGirl.create(:user, user_name: 'Thomas', mentor: true) }
+    let(:user_2) { FactoryGirl.create(:user, user_name: 'Anders') }
+    let(:user_3) { FactoryGirl.create(:user, user_name: 'Kalle') }
+    let(:user_4) { FactoryGirl.create(:user, user_name: 'Sam', mentor: true) }
+
+    before do
+      user_1.update(skill_list: 'java-script, testing, ruby')
+      user_2.update(skill_list: 'java-script, java, html')
+      user_3.update(skill_list: 'java, html')
+      user_4.update(skill_list: 'testing, ruby')
+    end
+
+    it 'unifies mentors to mentorees by skill' do
+      expect(user_1.unify).to include(user_2)
+    end
+
+    it 'does not unify mentors to mentorees if no common skill' do
+      expect(user_1.unify).not_to include(user_3, user_4)
+    end
+
+    it 'unifies mentorees to mentors and mentorees by skill' do
+      expect(user_2.unify).to include(user_3, user_1)
+    end
+
+    it 'does not unify mentors to mentors and mentorees if no common skill' do
+      expect(user_2.unify).not_to include(user_4)
     end
 
   end

@@ -2,11 +2,12 @@ Feature:
 
   Background:
     Given the following users exist
-      | user_name | created_at               |
-      | Thomas    | 2016-02-01T00:00:00.922Z |
-      | Mazen     | 2016-02-01T00:00:00.922Z |
-      | Tarek     | 2016-02-01T00:00:00.922Z |
-      | Ivan      | 2016-02-01T00:00:00.922Z |
+      | user_name | created_at               | private |
+      | Thomas    | 2016-02-01T00:00:00.922Z | false   |
+      | Mazen     | 2016-02-01T00:00:00.922Z | false   |
+      | Tarek     | 2016-02-01T00:00:00.922Z | false   |
+      | Ivan      | 2016-02-01T00:00:00.922Z | false   |
+      | Anders    | 2016-02-01T00:00:00.922Z | true    |
 
 
   Scenario: Returning a JSON response

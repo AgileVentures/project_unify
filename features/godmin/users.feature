@@ -4,11 +4,12 @@ Feature: As a system admin
 
   Background:
     Given the following users exist
-      | user_name |
-      | Thomas    |
-      | Mazen     |
-      | Tarek     |
-      | Ivan      |
+      | user_name | email             | password  | password_confirmation | private |
+      | Thomas    | thomas@mail.com   | password1 | password1             | false   |
+      | Mazen     | mazen@gmail.com   | password2 | password2             | false   |
+      | Tarek     | tarek@gmail.com   | password3 | password3             | false   |
+      | Ivan      | ivan@hotmai.com   | password4 | password4             | false   |
+      | Anders    | anders@hotmai.com | password4 | password4             | true    |
     Given the admin account is set up
     Given I am logged in as admin
     Given I click on "Users"
@@ -18,15 +19,20 @@ Feature: As a system admin
     And I should see "Mazen"
     And I should see "Tarek"
     And I should see "Ivan"
+    And I should see "Anders"
 
   Scenario: View user
     And I click on "Show" for "Mazen"
     Then I should see "Mazen"
+    And I should see "mazen@gmail.com"
     And I should see "Created at"
 
   Scenario: Create a user
     And I click on "Create User"
     And I fill in "User name" with "Tony"
+    And I fill in "Email" with "tony@outlook.com"
+    And I fill in "Password" with "password5"
+    And I fill in "Password confirmation" with "password5"
     And I click on "Create User"
     Then I should see "User was successfully created"
     And I should see 5 instances of User
@@ -34,16 +40,14 @@ Feature: As a system admin
   Scenario: Update user
     And I click on "Edit" for "Thomas"
     And I fill in "User name" with "Thomas Ochman"
+    And I fill in "Email" with "tochman@newmail.com"
     And I click on "Update User"
     Then I should see "User was successfully updated"
-    And the updated users username is "Thomas Ochman"
+    And I should see "Thomas Ochman"
+    And I should see "tochman@newmail.com"
 
   Scenario: Delete user
     And I click on "Destroy" for "Ivan"
     Then I should see "User was successfully destroyed"
     And I should see 3 instances of User
-
-
-
-
 
