@@ -12,8 +12,8 @@ Rails.application.routes.draw do
 
   devise_for :users,
               path: 'api/v1/users',
-              controllers: {registrations: 'api/v1/registrations'},
-              skip: [:sessions]
+              controllers: {registrations: 'api/v1/registrations',
+                            sessions: 'api/v1/sessions' }
   resources :users
   resource :session, only: [:new, :create, :destroy]
   root to: 'application#welcome'
