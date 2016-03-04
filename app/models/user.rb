@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  acts_as_token_authenticatable
   acts_as_taggable_on :skills
 
   devise :database_authenticatable, :registerable,

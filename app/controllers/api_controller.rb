@@ -5,6 +5,8 @@ class ApiController < ActionController::Base
   before_action :destroy_session
   before_action :default_response_format
 
+  acts_as_token_authentication_handler_for User
+
 
   def destroy_session
     request.session_options[:skip] = true
