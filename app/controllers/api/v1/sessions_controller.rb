@@ -12,5 +12,5 @@ class Api::V1::SessionsController < Devise::SessionsController
     @resource = resource
     render '/api/v1/users/success'
   end
-  
+
 end

@@ -1,0 +1,43 @@
+require 'rails_helper'
+
+describe Api::V1::RegistrationsController do
+
+  let(:headers) { {HTTP_ACCEPT: 'application/json'} }
+
+  describe 'POST /apr/v1/users/' do
+
+
+    describe 'register a user' do
+      it 'valid sign up returns user & token' do
+        post '/api/v1/users', {user:{user_name: 'Thomas',
+                               email: 'thomas@craft.com',
+                               password: 'password',
+                               password_confirmation: 'password'}}, headers
+
+        expect(response_json['message']).to eq('success')
+        expect(response_json['user']['user_name']).to eq('Thomas')
+        expect(response_json['user']['token']).to_not be nil
+        expect(response.status).to eq 200
+      end
+
+      it 'invalid password confirmation returns error message' do
+        post '/api/v1/users', {user:{user_name: 'Thomas',
+                                     email: 'thomas@craft.com',
+                                     password: 'password',
+                                     password_confirmation: 'wrong_password'}}, headers
+        expect(response_json['errors']['password_confirmation']).to eq(['doesn\'t match Password'])
+        expect(response.status).to eq 422
+      end
+
+      it 'invalid email returns error message' do
+        post '/api/v1/users', {user:{user_name: 'Thomas',
+                                     email: 'thomas@craft',
+                                     password: 'password',
+                                     password_confirmation: 'password'}}, headers
+        expect(response_json['errors']['email']).to eq(['is invalid'])
+        expect(response.status).to eq 422
+      end
+    end
+
+  end
+end

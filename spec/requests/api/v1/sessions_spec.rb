@@ -2,12 +2,10 @@ require 'rails_helper'
 
 describe Api::V1::SessionsController do
 
-  let(:user) { FactoryGirl.build(:user) }
+  let(:user) { FactoryGirl.create(:user) }
   let(:headers) { {HTTP_ACCEPT: 'application/json'} }
 
   describe 'POST /apr/v1/users/sign_in' do
-
-    before { user.save }
 
     describe 'user log in' do
       it 'valid credentials returns user & token' do
