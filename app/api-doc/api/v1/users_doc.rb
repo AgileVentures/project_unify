@@ -106,4 +106,12 @@ module Api::V1::UsersDoc
 
   def unify
   end
+
+  api :POST, '/v1/skills/:id', 'Updates skill list for :resource'
+  description 'Allows updating authorized resourse to update its own skill list.'
+  formats %w(json)
+  header 'X-User-Email', 'email', required: true
+  header 'X-User-Token', 'authentication token', required: true
+  def skills
+  end
 end

@@ -4,33 +4,94 @@ describe Api::V1::UsersController do
 
   let(:user) { FactoryGirl.create(:user) }
 
-  let(:headers) { {'X-User-Email': user.email, 'X-User-Token': user.authentication_token, HTTP_ACCEPT: 'application/json'} }
+  let(:headers) { {HTTP_X_USER_EMAIL: user.email, HTTP_X_USER_TOKEN: user.authentication_token, HTTP_ACCEPT: 'application/json'} }
   let(:no_headers) { {HTTP_ACCEPT: 'application/json'} }
-  describe 'POST /apr/v1/users/sign_in' do
-    before { FactoryGirl.create_list(:user, 3) }
 
-    describe 'GET /api/v1/users' do
-      it 'should return list of users' do
-        get '/api/v1/users', {}, headers
-        collection = []
-        User.all.each do |user|
-          collection << {id: user.id,
-                         user_name: user.user_name,
-                         created_at: user.created_at,
-                         profile: api_v1_user_url(user)}
-        end
-        expected_response = {users: collection}
-        expect(response_json).to eq JSON.parse(expected_response.to_json)
-      end
+  before { FactoryGirl.create_list(:user, 3) }
 
-      it 'should require authentication' do
-        get '/api/v1/users', {}, no_headers
-        expect(response_json['error']).to eq 'You need to sign in or sign up before continuing.'
-        expect(response.status).to eq 401
-      end
-
-
+  describe 'GET /api/v1/users' do
+    it 'should require authentication' do
+      get '/api/v1/users', {}, no_headers
+      expect(response_json['error']).to eq 'You need to sign in or sign up before continuing.'
+      expect(response.status).to eq 401
     end
+
+    it 'should return list of users' do
+      get '/api/v1/users', {}, headers
+      collection = []
+      User.all.each do |user|
+        collection << {id: user.id,
+                       user_name: user.user_name,
+                       created_at: user.created_at,
+                       profile: api_v1_user_url(user)}
+      end
+      expected_response = {users: collection}
+      expect(response_json).to eq JSON.parse(expected_response.to_json)
+    end
+
   end
+
+  describe 'GET /api/v1/unify' do
+    let(:user_1) { FactoryGirl.create(:user, user_name: 'Thomas', mentor: true) }
+    let(:user_2) { FactoryGirl.create(:user, user_name: 'Anders') }
+    let(:user_3) { FactoryGirl.create(:user, user_name: 'Kalle') }
+    let(:user_4) { FactoryGirl.create(:user, user_name: 'Sam', mentor: true) }
+
+    before do
+      user_1.update(skill_list: 'java-script, testing, ruby')
+      user_2.update(skill_list: 'java-script, java, html')
+      user_3.update(skill_list: 'java, html')
+      user_4.update(skill_list: 'testing, ruby')
+    end
+
+    it 'should require authentication' do
+      get "/api/v1/unify/#{user_1.id}", {}, no_headers
+      expect(response_json['error']).to eq 'You need to sign in or sign up before continuing.'
+      expect(response.status).to eq 401
+    end
+
+    it 'should return list of users' do
+      get "/api/v1/unify/#{user_1.id}", {}, headers
+      expected_response = []
+      user_1.unify.each do |user|
+        hash = {id: user.id,
+                user_name: user.user_name,
+                created_at: user.created_at,
+                skills: user.skill_list,
+                profile: api_v1_user_url(user)}
+        expected_response << {user: hash}
+      end
+      expect(response_json['matches']).to eq JSON.parse(expected_response.to_json)
+    end
+
+  end
+
+  describe 'POST /api/v1/skills/:id' do
+    let(:user_1) { FactoryGirl.create(:user) }
+    let(:user_2) { FactoryGirl.create(:user) }
+
+    let(:headers) { {HTTP_X_USER_EMAIL: user_1.email, HTTP_X_USER_TOKEN: user_1.authentication_token, HTTP_ACCEPT: 'application/json'} }
+
+    it 'should require authentication' do
+      post "/api/v1/skills/#{user_1.id}", {skills: 'test, programing, cooking'}, no_headers
+      expect(response_json['error']).to eq 'You need to sign in or sign up before continuing.'
+      expect(response.status).to eq 401
+    end
+
+    it 'should update authorized users skills list' do
+      post "/api/v1/skills/#{user_1.id}", {skills: 'test, programing, cooking'}, headers
+      expect(response_json['message']).to eq( 'success')
+      expect(response.status).to eq 200
+    end
+
+    it 'should reject updating other than authorized users skills list' do
+      post "/api/v1/skills/#{user_2.id}", {skills: 'test, programing, cooking'}, headers
+      expect(response_json['errors']).to eq( {'skills' => ['could not perform operation']} )
+      expect(response.status).to eq 401
+    end
+
+  end
+
+
 end
 
