@@ -1,9 +1,17 @@
+World(Rack::Test::Methods)
+
+Given /^I am a valid API user$/ do
+  @user = FactoryGirl.create(:user)
+  @user.save
+  expect(@user.authentication_token).to_not eq nil
+end
+
 When(/^the Accept Type is (.*)/) do |accept_type|
   @accept_type = accept_type
 end
 
 When /^the client requests GET (.*)$/ do |path|
-  @last_response = get path, headers: {'Accept' => @accept_type}
+  @last_response = get path, {},  {'Accept' => @accept_type, 'X-User-Email' => "#{@user.email}", 'X-User-Token' => "#{@user.authentication_token}"}
 end
 
 When /^I send a GET request for ([^\"]*)$/ do |path|

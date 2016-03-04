@@ -1,5 +1,6 @@
 require 'coveralls'
 Coveralls.wear!
+require 'rack/test'
 require 'cucumber/rails'
 require 'capybara/poltergeist'
 
@@ -15,3 +16,6 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 # Something is setting request.host to 'example.org', so the step definitions
 # need that set too
 Before { host! 'example.org' }
+
+
+World(Rack::Test::Methods)
