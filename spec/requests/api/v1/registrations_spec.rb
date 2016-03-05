@@ -4,7 +4,7 @@ describe Api::V1::RegistrationsController do
 
   let(:headers) { {HTTP_ACCEPT: 'application/json'} }
 
-  describe 'POST /apr/v1/users/' do
+  describe 'POST /api/v1/users/' do
 
 
     describe 'register a user' do
