@@ -44,10 +44,16 @@ describe Api::V1::SessionsController do
     describe 'user log out' do
       before(:each) do
         post '/api/v1/users/sign_in', {user:{email:"#{user.email}", password:"#{user.password}"}}, headers
-        
         delete '/api/v1/users/sign_out', {user:{authentication_token: "#{user.authentication_token}"}}, headers
       end
-      it { should respond_with 204 }
+      
+      it 'should return status 204' do
+        expect(response.status).to eq 204
+      end
+      
+      it 'should set the user authentication token to nil' do
+        expect(user.authentication_token).to be_nil
+      end
     end
   end
 end
