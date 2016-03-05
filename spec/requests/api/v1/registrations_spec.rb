@@ -49,5 +49,26 @@ describe Api::V1::RegistrationsController do
       end
     end
 
+    describe 'OmniAuth' do
+      describe 'Facebook' do
+        before do
+          Rails.application.env_config["devise.mapping"] = Devise.mappings[:user] # If using Devise
+          Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
+          OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+                                                                            provider: 'facebook',
+                                                                            uid: '123545',
+                                                                            name: 'Thomas',
+                                                                            email: 'thomas@craft.com'
+                                                                        })
+        end
+
+        it 'allows user to register' do
+
+          post '/api/v1/users/auth/facebook/callback', {}, headers
+          binding.pry
+        end
+      end
+    end
+
   end
 end

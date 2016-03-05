@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   devise_for :users,
              path: 'api/v1/users',
              controllers: {registrations: 'api/v1/registrations',
-                           sessions: 'api/v1/sessions' }
+                           sessions: 'api/v1/sessions',
+                           omniauth_callbacks: 'api/v1/omniauth_callbacks'}
   resources :users
   resources :tags, as: 'acts_as_taggable_on_tag'
   resource :session, only: [:new, :create, :destroy]

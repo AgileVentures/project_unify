@@ -7,6 +7,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 
 
   def create
+    binding.pry
     self.resource = build_resource(sign_up_params.merge params['user'])
     resource.save
     yield resource if block_given?
