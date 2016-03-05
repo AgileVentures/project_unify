@@ -18,4 +18,8 @@ class User < ActiveRecord::Base
   def unify
     self.mentor ? self.find_related_skills.mentorees : self.find_related_skills
   end
+
+  def reset_authentication_token
+    self.update_attribute(:authentication_token, nil)
+  end
 end
