@@ -49,5 +49,29 @@ describe Api::V1::RegistrationsController do
       end
     end
 
+    describe 'OmniAuth' do
+      describe 'Facebook' do
+        before do
+          Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
+          Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:facebook]
+        end
+
+        it 'allows user to register with valid authorization' do
+          post '/api/v1/users/auth/facebook/callback', {}, headers
+          expect(response_json['message']).to eq('success')
+          expect(response_json['user']['user_name']).to eq('Thomas Ochman')
+          expect(response_json['user']['token']).to_not be nil
+          expect(response.status).to eq 200
+        end
+
+        it 'fails to register user with invalid authorization' do
+          OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
+          post '/api/v1/users/auth/facebook/callback', {}, headers
+          expect(response_json['errors']).to eq('authentication error')
+          expect(response.status).to eq 401
+        end
+      end
+    end
+
   end
 end

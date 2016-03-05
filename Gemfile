@@ -18,6 +18,8 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'acts-as-taggable-on'
 gem 'devise'
 gem 'simple_token_authentication', '~> 1.0'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :development, :test do
   gem 'coveralls', require: false

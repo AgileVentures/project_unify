@@ -18,3 +18,19 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 end
+
+OmniAuth.config.test_mode = true
+
+OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+                                                                  provider: 'facebook',
+                                                                  uid: '123545',
+                                                                  info: {
+                                                                      first_name: 'Thomas',
+                                                                      last_name:  'Ochman',
+                                                                      email:      'thomas@craft.com'
+                                                                  },
+                                                                  credentials: {
+                                                                      token: '1234567890',
+                                                                      expires_at: Time.now + 1.week
+                                                                  }
+                                                              })
