@@ -1,7 +1,7 @@
 class Api::V1::SessionsController < Devise::SessionsController
   skip_before_filter :verify_authenticity_token
 
-  include API::V1::SessionsDoc
+  include Api::V1::SessionsDoc
   clear_respond_to
   respond_to :json
 
