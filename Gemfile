@@ -48,3 +48,7 @@ group :test do
   gem 'rack-test'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
