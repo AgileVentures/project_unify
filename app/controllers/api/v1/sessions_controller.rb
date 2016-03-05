@@ -13,4 +13,13 @@ class Api::V1::SessionsController < Devise::SessionsController
     render '/api/v1/users/success'
   end
 
+  def destroy
+    user = User.find_by_authentication_token(request.headers['X-API-TOKEN'])
+    if user
+      user.authentication_token = nil
+      render json: { message: 'Session deleted.' }, status: 204
+    else
+      render json: { message: 'Invalid token.' }, status: 404
+    end
+  end
 end
