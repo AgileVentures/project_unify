@@ -1,5 +1,7 @@
 class Api::V1::RegistrationsController < Devise::RegistrationsController
-  before_filter :configure_permitted_parameters, only: [:create]
+  before_action :configure_permitted_parameters, only: [:create]
+  before_action :set_default_response_format
+
   skip_before_filter :verify_authenticity_token
   include Api::V1::RegistrationsDoc
   clear_respond_to
@@ -29,6 +31,10 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:user_name, :email, :password, :provider, :uid ) }
+  end
+
+  def set_default_response_format
+    request.format = :json
   end
 
 end

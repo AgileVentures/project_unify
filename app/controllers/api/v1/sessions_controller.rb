@@ -1,5 +1,6 @@
 class Api::V1::SessionsController < Devise::SessionsController
   skip_before_filter :verify_authenticity_token
+  before_action :set_default_response_format
 
   include Api::V1::SessionsDoc
   clear_respond_to
@@ -22,5 +23,11 @@ class Api::V1::SessionsController < Devise::SessionsController
     else
       render json: { error: 'Invalid token' }, status: 401
     end
+  end
+
+  protected
+
+  def set_default_response_format
+    request.format = :json
   end
 end
