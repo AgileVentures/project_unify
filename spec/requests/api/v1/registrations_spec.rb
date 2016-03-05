@@ -52,14 +52,10 @@ describe Api::V1::RegistrationsController do
     describe 'OmniAuth' do
       describe 'Facebook' do
         before do
-          Rails.application.env_config["devise.mapping"] = Devise.mappings[:user] # If using Devise
+          Rails.application.env_config["devise.mapping"] = Devise.mappings[:user]
           Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
-          OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
-                                                                            provider: 'facebook',
-                                                                            uid: '123545',
-                                                                            name: 'Thomas',
-                                                                            email: 'thomas@craft.com'
-                                                                        })
+          binding.pry
+
         end
 
         it 'allows user to register' do

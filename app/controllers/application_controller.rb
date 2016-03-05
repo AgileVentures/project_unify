@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  #include Godmin::ApplicationController
-  #include Godmin::Authentication
+  include Godmin::ApplicationController
+  include Godmin::Authentication
 
   def admin_user_class
     AdminUser
