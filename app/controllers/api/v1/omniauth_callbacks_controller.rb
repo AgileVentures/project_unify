@@ -1,5 +1,6 @@
 class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_filter :verify_authenticity_token
+  before_action :set_default_response_format
   clear_respond_to
   respond_to :json
 
@@ -12,12 +13,16 @@ class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       render 'api/v1/users/success'
     else
       session['devise.facebook_data'] = request.env['omniauth.auth']
-      binding.pry
       redirect_to new_user_registration_url
     end
   end
 
   def failure
     render json: {errors: 'authentication error'}, status: 401
+  end
+
+  protected
+  def set_default_response_format
+    request.format = :json
   end
 end

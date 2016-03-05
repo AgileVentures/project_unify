@@ -3,7 +3,7 @@ class ApiController < ActionController::Base
   skip_before_filter :verify_authenticity_token
 
   before_action :destroy_session
- # before_action :default_response_format
+  before_action :set_default_response_format
 
   acts_as_token_authentication_handler_for User
 
@@ -17,7 +17,7 @@ class ApiController < ActionController::Base
 
   protected
 
-  def default_response_format
+  def set_default_response_format
     request.format = :json
   end
 end
