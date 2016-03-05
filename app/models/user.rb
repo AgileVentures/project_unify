@@ -36,4 +36,8 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  def reset_authentication_token
+    self.update_attribute(:authentication_token, nil)
+  end
 end
