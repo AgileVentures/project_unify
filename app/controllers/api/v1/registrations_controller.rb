@@ -7,7 +7,6 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 
 
   def create
-    binding.pry
     self.resource = build_resource(sign_up_params.merge params['user'])
     resource.save
     yield resource if block_given?
@@ -29,7 +28,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 
   protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:user_name, :email, :password) }
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:user_name, :email, :password, :provider, :uid ) }
   end
 
 end

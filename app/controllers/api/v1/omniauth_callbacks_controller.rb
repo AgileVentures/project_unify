@@ -4,20 +4,20 @@ class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   respond_to :json
 
   def facebook
-    # You need to implement the method below in your model (e.g. app/models/user.rb)
-    binding.pry
-    @user = User.from_omniauth(request.env['omniauth.auth'])
-
-    if @user.persisted?
-      sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
-      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+    resource_class = ActiveRecord::Base::User
+    self.resource = resource_class.from_omniauth(request.env['omniauth.auth'])
+    if resource.persisted?
+      sign_in(resource_name, resource)
+      @resource = resource
+      render 'api/v1/users/success'
     else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
+      session['devise.facebook_data'] = request.env['omniauth.auth']
+      binding.pry
       redirect_to new_user_registration_url
     end
   end
 
   def failure
-    redirect_to root_path
+    render json: {errors: 'authentication error'}, status: 401
   end
 end
