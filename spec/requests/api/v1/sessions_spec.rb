@@ -5,7 +5,7 @@ describe Api::V1::SessionsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:headers) { {HTTP_ACCEPT: 'application/json'} }
 
-  describe 'POST /apr/v1/users/sign_in' do
+  describe 'POST /api/v1/users/sign_in' do
 
     describe 'user log in' do
       it 'valid credentials returns user & token' do
@@ -38,5 +38,16 @@ describe Api::V1::SessionsController do
       end
     end
 
+  end
+  
+  describe 'DELETE /api/v1/users/sign_out' do
+    describe 'user log out' do
+      before(:each) do
+        post '/api/v1/users/sign_in', {user:{email:"#{user.email}", password:"#{user.password}"}}, headers
+        
+        delete '/api/v1/users/sign_out', {user:{authentication_token: "#{user.authentication_token}"}}, headers
+      end
+      it { should respond_with 204 }
+    end
   end
 end
