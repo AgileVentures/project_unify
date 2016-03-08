@@ -31,6 +31,30 @@ describe Api::V1::UsersController do
 
   end
 
+  describe 'Get /api/v1/users/:id' do
+    let(:resource) { FactoryGirl.create(:user) }
+    before do
+      resource.update(skill_list: 'java-script, testing, ruby')
+    end
+
+    it 'should require authentication' do
+      get "/api/v1/users/#{resource.id}", {}, no_headers
+      expect(response_json['error']).to eq 'You need to sign in or sign up before continuing.'
+      expect(response.status).to eq 401
+    end
+
+    it 'should return a user resource' do
+      get "/api/v1/users/#{resource.id}", {}, headers
+      expected_response = {user: {id: resource.id,
+                                  user_name: resource.user_name,
+                                  email: resource.email,
+                                  skills: resource.skill_list.reverse,
+                                  created_at: resource.created_at}}
+      expect(response_json).to eq JSON.parse(expected_response.to_json)
+    end
+
+  end
+
   describe 'GET /api/v1/unify' do
     let(:user_1) { FactoryGirl.create(:user, user_name: 'Thomas', mentor: true) }
     let(:user_2) { FactoryGirl.create(:user, user_name: 'Anders') }
@@ -80,13 +104,13 @@ describe Api::V1::UsersController do
 
     it 'should update authorized users skills list' do
       post "/api/v1/skills/#{user_1.id}", {skills: 'test, programing, cooking'}, headers
-      expect(response_json['message']).to eq( 'success')
+      expect(response_json['message']).to eq('success')
       expect(response.status).to eq 200
     end
 
     it 'should reject updating other than authorized users skills list' do
       post "/api/v1/skills/#{user_2.id}", {skills: 'test, programing, cooking'}, headers
-      expect(response_json['errors']).to eq( {'skills' => ['could not perform operation']} )
+      expect(response_json['errors']).to eq({'skills' => ['could not perform operation']})
       expect(response.status).to eq 401
     end
 
