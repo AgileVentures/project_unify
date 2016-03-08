@@ -108,6 +108,13 @@ describe Api::V1::UsersController do
       expect(response.status).to eq 200
     end
 
+    it 'should delete skills if not passed in the params' do
+      user_1.skill_list.add('test, programing, cooking', parse: true)
+      post "/api/v1/skills/#{user_1.id}", {skills: 'test, cooking'}, headers
+      user_1.reload
+      expect(user_1.skill_list).not_to include('programing')
+    end
+
     it 'should reject updating other than authorized users skills list' do
       post "/api/v1/skills/#{user_2.id}", {skills: 'test, programing, cooking'}, headers
       expect(response_json['errors']).to eq({'skills' => ['could not perform operation']})
