@@ -108,7 +108,7 @@ module Api::V1::UsersDoc
   end
 
   api :POST, '/v1/skills/:id', 'Updates skill list for :resource'
-  description 'Allows updating authorized resourse to update its own skill list.'
+  description 'Allows updating authorized resource to update its own skill list.'
   formats %w(json)
   header 'X-User-Email', 'email', required: true
   header 'X-User-Token', 'authentication token', required: true
