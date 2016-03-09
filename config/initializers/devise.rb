@@ -241,7 +241,9 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   if Rails.env.development? || Rails.env.test?
-    config.omniauth :facebook, '1621623384764301', '52edb8b7ca0af425a4cb406781004803', scope: 'email', info_fields: 'email, name'
+    config.omniauth :facebook, '1621623384764301', '52edb8b7ca0af425a4cb406781004803', scope: 'email', info_fields: 'email, name', :provider_ignores_state => true
+
+
   else
     config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email', info_fields: 'email, name'
   end
