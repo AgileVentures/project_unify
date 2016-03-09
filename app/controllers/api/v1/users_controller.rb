@@ -8,7 +8,7 @@ class Api::V1::UsersController < ApiController
 
 
   def show
-    @user = User.find(params[:user][:id])
+    @user = User.find(params[:id])
   end
 
   def unify
@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApiController
   def skills
     user = User.find(params[:id])
     if user.authentication_token == params[:user_token]
-      user.skill_list.add(params[:skills], parse: true)
+      user.skill_list = (params[:skills])
       user.save
       render json: {message: 'success'}
     else

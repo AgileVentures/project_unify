@@ -20,6 +20,7 @@ describe Api::V1::SessionsController do
                                         'user_name' => user.user_name,
                                         'email' => user.email,
                                         'mentor' => false,
+                                        'skills' => user.skills.reverse,
                                         'token' => user.authentication_token
                                     })
         expect(user.authentication_token).to_not be nil
@@ -44,7 +45,7 @@ describe Api::V1::SessionsController do
     let(:sign_in_headers) { {HTTP_X_USER_EMAIL: user.email, HTTP_X_USER_TOKEN: user.authentication_token, HTTP_ACCEPT: 'application/json'} }
 
     describe 'user log out' do
-      before  do
+      before do
         post '/api/v1/users/sign_in', {user: {email: "#{user.email}", password: "#{user.password}"}}, headers
         @old_token = user.authentication_token
         delete '/api/v1/users/sign_out', {}, sign_in_headers
@@ -67,17 +68,17 @@ describe Api::V1::SessionsController do
     describe 'with wrong headers' do
       let(:wrong_sign_in_headers) { {HTTP_X_USER_EMAIL: user.email, HTTP_X_USER_TOKEN: 'xxxxxxxx', HTTP_ACCEPT: 'application/json'} }
 
-      before  do
+      before do
         post '/api/v1/users/sign_in', {user: {email: "#{user.email}", password: "#{user.password}"}}, headers
         delete '/api/v1/users/sign_out', {}, wrong_sign_in_headers
 
       end
 
-      it 'raises error response'do
+      it 'raises error response' do
         expect(response_json['error']).to eq 'Invalid token'
       end
 
-      it 'raises authentication error'do
+      it 'raises authentication error' do
         expect(response.status).to eq 401
       end
 

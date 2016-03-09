@@ -3,6 +3,7 @@ module Api::V1::RegistrationsDoc
 
   api :POST, '/v1/users', 'create new user'
   formats %w(json)
+  header :HTTP_ACCEPT, 'application/json', required: true
 
   param :user_name, String, desc: 'username', required: false
   param :email, String, desc: 'Email', required: false
