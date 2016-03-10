@@ -4,6 +4,8 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password 'password'
     password_confirmation 'password'
+    latitude { Faker::Address.latitude }
+    longitude { Faker::Address.longitude }
     mentor false
     private false
   end

@@ -15,8 +15,10 @@ AdminUser.create!(
 10.times do
   User.create!(
     user_name: Faker::Name.name,
-    email: Faker::Internet.email,
+    email:     Faker::Internet.email,
     password: 'password',
-    password_confirmation: 'password'
+    password_confirmation: 'password',
+    latitude:  Faker::Address.latitude,
+    longitude: Faker::Address.longitude 
   )
 end

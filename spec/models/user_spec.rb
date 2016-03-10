@@ -10,6 +10,12 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :id }
     it { is_expected.to have_db_column :user_name }
     it { is_expected.to have_db_column :email }
+    it { is_expected.to have_db_column :longitude }
+    it { is_expected.to have_db_column :latitude }
+    it { is_expected.to have_db_column :street }
+    it { is_expected.to have_db_column :city }
+    it { is_expected.to have_db_column :state }
+    it { is_expected.to have_db_column :country }
     it { is_expected.to respond_to :mentor }
     it { is_expected.to respond_to :private }
 
@@ -131,4 +137,14 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe 'Geocoder' do
+    let(:user) { FactoryGirl.create(:user, user_name: 'Zmago', latitude: 45.960491, longitude: 13.6599124 ) }
+   
+    it 'should set the address to user' do
+      expect(user.street).to eq '3 Damber'
+      expect(user.city).to eq 'Kromberk'
+      expect(user.state).to eq 'Nova Gorica'
+      expect(user.country).to eq 'Slovenia'
+    end
+  end
 end
