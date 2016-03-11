@@ -20,11 +20,8 @@ gem 'devise'
 gem 'simple_token_authentication', '~> 1.0'
 gem 'omniauth'
 gem 'omniauth-facebook'
-<<<<<<< HEAD
 gem 'geocoder'
-=======
 gem 'fb_graph2'
->>>>>>> b4d98254ada92365e1f9988582b5b7fcb67126a2
 
 group :development, :test do
   gem 'coveralls', require: false

@@ -39,7 +39,8 @@ RSpec.configure do |config|
       name = example.metadata[:full_description].split(/\s+/, 2).join('/').underscore.gsub(/\./,'/').gsub(/[^\w\/]+/, '_').gsub(/\/$/, '')
       VCR.use_cassette(name, options, &example)
     end
-
+  end
+  
   config.before(:each) do
     WebMock.stub_request(:get, /graph.facebook.com/).
         to_return(status: 200)
