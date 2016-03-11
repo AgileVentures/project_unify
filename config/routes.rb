@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show], constraints: {format: /(json)/}
       get 'unify/:id', controller: :users, action: :unify, as: :unify, constraints: {format: /(json)/}
       post 'skills/:id', controller: :users, action: :skills, as: :skills, constraints: {format: /(json)/}
+      resources :activities, only: [:index]
     end
 
     namespace :v0 do

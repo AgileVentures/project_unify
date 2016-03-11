@@ -20,6 +20,7 @@ gem 'devise'
 gem 'simple_token_authentication', '~> 1.0'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'fb_graph2'
 
 group :development, :test do
   gem 'coveralls', require: false
@@ -46,6 +47,7 @@ group :test do
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'rack-test'
+  gem 'webmock'
 end
 
 group :production do

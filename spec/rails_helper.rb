@@ -6,8 +6,9 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
+require 'webmock/rspec'
 ActiveRecord::Migration.maintain_test_schema!
-
+WebMock.disable_net_connect!(allow_localhost: true)
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
@@ -17,6 +18,11 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+  config.before(:each) do
+    WebMock.stub_request(:get, /graph.facebook.com/).
+        to_return(status: 200)
+  end
 end
 
 OmniAuth.config.test_mode = true
