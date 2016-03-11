@@ -20,6 +20,10 @@ describe Api::V1::SessionsController do
                                         'user_name' => user.user_name,
                                         'email' => user.email,
                                         'mentor' => false,
+                                        'lat' => user.latitude,
+                                        'lng' => user.longitude,
+                                        'city' => user.city,
+                                        'country' => user.country,
                                         'skills' => user.skills.reverse,
                                         'token' => user.authentication_token
                                     })
