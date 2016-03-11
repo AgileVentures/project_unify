@@ -3,9 +3,12 @@ Coveralls.wear!
 require 'rack/test'
 require 'cucumber/rails'
 require 'capybara/poltergeist'
+require 'webmock/cucumber'
 
 Capybara.javascript_driver = :poltergeist
 Capybara.default_max_wait_time = 5
+WebMock.allow_net_connect!
+
 
 ActionController::Base.allow_rescue = false
 

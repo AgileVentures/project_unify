@@ -13,7 +13,7 @@ class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       render 'api/v1/users/success'
     else
       session['devise.facebook_data'] = request.env['omniauth.auth']
-      redirect_to new_user_registration_url
+      render json: {errors: 'could not perform login'}, status: 401
     end
   end
 

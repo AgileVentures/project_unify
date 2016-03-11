@@ -3,6 +3,7 @@ module Api::V1::UsersDoc
 
   api :GET, '/v1/users/', 'List of resources: User'
   formats %w(json)
+  header :HTTP_ACCEPT, 'application/json', required: true
   header 'X-User-Email', 'email', required: true
   header 'X-User-Token', 'authentication token', required: true
   description 'Returns a list of registered users with URL\'s to #show for each instance'
@@ -33,6 +34,7 @@ module Api::V1::UsersDoc
   api :GET, '/v1/users/:id', 'Show a :resource'
   description 'Returns an instance of user'
   formats %w(json)
+  header :HTTP_ACCEPT, 'application/json', required: true
   header 'X-User-Email', 'email', required: true
   header 'X-User-Token', 'authentication token', required: true
   example %q(
@@ -51,6 +53,7 @@ module Api::V1::UsersDoc
   api :GET, '/v1/unify/:id', 'Show a list of matches for :resource'
   description 'Returns an instance of user with an array of matched users'
   formats %w(json)
+  header :HTTP_ACCEPT, 'application/json', required: true
   header 'X-User-Email', 'email', required: true
   header 'X-User-Token', 'authentication token', required: true
   example %q(
@@ -108,7 +111,7 @@ module Api::V1::UsersDoc
   end
 
   api :POST, '/v1/skills/:id', 'Updates skill list for :resource'
-  description 'Allows updating authorized resourse to update its own skill list.'
+  description 'Allows updating authorized resource to update its own skill list.'
   formats %w(json)
   header 'X-User-Email', 'email', required: true
   header 'X-User-Token', 'authentication token', required: true
