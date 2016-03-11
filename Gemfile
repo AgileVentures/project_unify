@@ -47,6 +47,8 @@ group :test do
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'rack-test'
+  gem 'webmock', '~> 1.24'
+  gem 'vcr'
 end
 
 group :production do
