@@ -24,4 +24,9 @@ describe Api::V1::ActivitiesController do
     expect(response.status).to eq 200
   end
 
+  it 'activity type should be :facebook' do
+    get '/api/v1/activities', {}, headers
+    expect(response_json['feed'].last['type']).to eq 'facebook'
+  end
+
 end
