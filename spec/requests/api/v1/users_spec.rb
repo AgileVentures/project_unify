@@ -50,6 +50,8 @@ describe Api::V1::UsersController do
                                   user_name: resource.user_name,
                                   lat: resource.latitude,
                                   lng: resource.longitude,
+                                  city: resource.city,
+                                  country: resource.country,
                                   email: resource.email,
                                   skills: resource.skill_list.reverse,
                                   created_at: resource.created_at}}
