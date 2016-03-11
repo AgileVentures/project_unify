@@ -21,6 +21,8 @@ describe Api::V1::UsersController do
       User.all.each do |user|
         collection << {id: user.id,
                        user_name: user.user_name,
+                       city: user.city,
+                       country: user.country,
                        created_at: user.created_at,
                        profile: api_v1_user_url(user)}
       end
