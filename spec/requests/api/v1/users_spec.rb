@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Api::V1::UsersController do
-
   let(:user) { FactoryGirl.create(:user) }
 
   let(:headers) { {HTTP_X_USER_EMAIL: user.email, HTTP_X_USER_TOKEN: user.authentication_token, HTTP_ACCEPT: 'application/json'} }
@@ -22,6 +21,8 @@ describe Api::V1::UsersController do
       User.all.each do |user|
         collection << {id: user.id,
                        user_name: user.user_name,
+                       city: user.city,
+                       country: user.country,
                        created_at: user.created_at,
                        profile: api_v1_user_url(user)}
       end
@@ -47,6 +48,8 @@ describe Api::V1::UsersController do
       get "/api/v1/users/#{resource.id}", {}, headers
       expected_response = {user: {id: resource.id,
                                   user_name: resource.user_name,
+                                  lat: resource.latitude,
+                                  lng: resource.longitude,
                                   email: resource.email,
                                   skills: resource.skill_list.reverse,
                                   created_at: resource.created_at}}

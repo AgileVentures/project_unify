@@ -20,6 +20,7 @@ gem 'devise'
 gem 'simple_token_authentication', '~> 1.0'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'geocoder'
 gem 'fb_graph2'
 
 group :development, :test do
@@ -47,6 +48,7 @@ group :test do
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'rack-test'
+  gem 'vcr'
   gem 'webmock'
 end
 

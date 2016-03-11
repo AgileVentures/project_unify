@@ -1,6 +1,17 @@
 class User < ActiveRecord::Base
   acts_as_token_authenticatable
   acts_as_taggable_on :skills
+  
+  geocoded_by :address
+  reverse_geocoded_by :latitude, :longitude, address: :location do |obj,results|
+    if geo = results.first
+      obj.street   = geo.street_address
+      obj.city     = geo.city
+      obj.state    = geo.state
+      obj.country  = geo.country
+    end
+  end
+  after_validation :geocode, :reverse_geocode
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -40,4 +51,11 @@ class User < ActiveRecord::Base
   def reset_authentication_token
     self.update_attribute(:authentication_token, nil)
   end
+  
+  private
+  
+  def address
+    [street, city, state, country].compact.join(', ')
+  end
+  
 end

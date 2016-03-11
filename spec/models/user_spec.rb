@@ -10,6 +10,12 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :id }
     it { is_expected.to have_db_column :user_name }
     it { is_expected.to have_db_column :email }
+    it { is_expected.to have_db_column :longitude }
+    it { is_expected.to have_db_column :latitude }
+    it { is_expected.to have_db_column :street }
+    it { is_expected.to have_db_column :city }
+    it { is_expected.to have_db_column :state }
+    it { is_expected.to have_db_column :country }
     it { is_expected.to respond_to :mentor }
     it { is_expected.to respond_to :private }
     it { is_expected.to respond_to :password }
@@ -36,7 +42,7 @@ RSpec.describe User, type: :model do
     end
   end
   describe 'Fixtures' do
-
+    
     it 'should have valid Fixture Factory' do
       expect(FactoryGirl.create(:user)).to be_valid
     end
@@ -45,12 +51,13 @@ RSpec.describe User, type: :model do
 
   describe 'scopes' do
     describe 'mentors & mentorees' do
+ 
       let(:user_1) { create(:user, mentor: true) }
       let(:user_2) { create(:user, mentor: true) }
       let(:user_3) { create(:user, mentor: false) }
       let(:user_4) { create(:user, mentor: false) }
       let(:user_5) { create(:user, mentor: false) }
-
+    
       it '#mentors returns mentors' do
         expect(User.mentors).to include(user_1, user_2)
         expect(User.mentors).not_to include(user_3, user_4, user_5)
@@ -64,9 +71,10 @@ RSpec.describe User, type: :model do
 
 
     describe 'private profile' do
+      
       let(:user_1) { create(:user, private: true) }
       let(:user_2) { create(:user, private: false) }
-
+   
       it 'default scope returns profiles NOT marked private' do
         expect(User.all).to include(user_2)
         expect(User.all).not_to include(user_1)
@@ -87,7 +95,7 @@ RSpec.describe User, type: :model do
 
   describe 'Skills tags' do
     let(:user) { create(:user) }
-
+    
     it 'adds a single skill' do
       user.skill_list.add('java-script')
       expect(user.skill_list).to include /java-script/
@@ -100,12 +108,11 @@ RSpec.describe User, type: :model do
   end
 
   describe 'unify' do
-
     let(:user_1) { FactoryGirl.create(:user, user_name: 'Thomas', mentor: true) }
     let(:user_2) { FactoryGirl.create(:user, user_name: 'Anders') }
     let(:user_3) { FactoryGirl.create(:user, user_name: 'Kalle') }
     let(:user_4) { FactoryGirl.create(:user, user_name: 'Sam', mentor: true) }
-
+  
     before do
       user_1.update(skill_list: 'java-script, testing, ruby')
       user_2.update(skill_list: 'java-script, java, html')
@@ -131,4 +138,14 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe 'Geocoder' do
+    let(:user) { FactoryGirl.create(:user, user_name: 'Zmago', latitude: 45.960491, longitude: 13.6599124 ) }
+  
+    it 'should set the address to user' do
+      expect(user.street).to eq '3 Damber'
+      expect(user.city).to eq 'Kromberk'
+      expect(user.state).to eq 'Nova Gorica'
+      expect(user.country).to eq 'Slovenia'
+    end
+  end
 end
