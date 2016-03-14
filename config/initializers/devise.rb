@@ -241,11 +241,26 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   if Rails.env.development? || Rails.env.test?
-    config.omniauth :facebook, '1621623384764301', '52edb8b7ca0af425a4cb406781004803', scope: 'email', info_fields: 'email, name', :provider_ignores_state => true
+    config.omniauth :facebook, '1621623384764301', '52edb8b7ca0af425a4cb406781004803',
+                    scope: 'email',
+                    info_fields: 'email, name, location',
+                    provider_ignores_state: true,
+                    client_options: {
+                        site: 'https://graph.facebook.com/v2.5',
+                        authorize_url: 'https://www.facebook.com/v2.5/dialog/oauth'
+                    },
+                    token_params: {parse: :json}
 
 
   else
-    config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'], scope: 'email', info_fields: 'email, name'
+    config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'],
+                    scope: 'email',
+                    info_fields: 'email, name, location',
+                    client_options: {
+                        site: 'https://graph.facebook.com/v2.5',
+                        authorize_url: 'https://www.facebook.com/v2.5/dialog/oauth'
+                    },
+                    token_params: {parse: :json}
   end
 
   # ==> Warden configuration

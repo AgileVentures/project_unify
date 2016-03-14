@@ -10,6 +10,7 @@ class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if resource.persisted?
       sign_in(resource_name, resource)
       @resource = resource
+      @credentials = request.env['omniauth.auth']['credentials']
       render 'api/v1/users/success'
     else
       session['devise.facebook_data'] = request.env['omniauth.auth']
