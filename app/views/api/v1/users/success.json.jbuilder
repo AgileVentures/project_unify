@@ -11,5 +11,5 @@ json.user do
   json.country user.country
   json.skills user.skill_list
   json.token user.authentication_token
-  json.credentials @credentials
+  json.credentials @credentials if @credentials
 end
