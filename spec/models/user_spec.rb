@@ -16,6 +16,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :city }
     it { is_expected.to have_db_column :state }
     it { is_expected.to have_db_column :country }
+    it { is_expected.to have_db_column :gender }
     it { is_expected.to respond_to :mentor }
     it { is_expected.to respond_to :private }
     it { is_expected.to respond_to :password }
@@ -147,5 +148,10 @@ RSpec.describe User, type: :model do
       expect(user.state).to eq 'Nova Gorica'
       expect(user.country).to eq 'Slovenia'
     end
+  end
+  
+  describe 'Gender field' do
+    it { is_expected.to allow_values('Male', 'Female', 'male', 'female').for(:gender)}
+    it { is_expected.to_not allow_values('Ma', 'asdf', '', 12).for(:gender)}
   end
 end
