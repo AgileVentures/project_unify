@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
     end
   end
   after_validation :geocode, :reverse_geocode
+  validates :gender,
+    :inclusion  => { :in => [ 'Male', 'Female', 'male', 'female', nil ],
+    :message    => "%{value} is not a valid gender" }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,

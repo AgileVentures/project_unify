@@ -11,6 +11,7 @@ describe Api::V1::RegistrationsController do
       it 'with valid sign up returns user & token' do
         post '/api/v1/users', {user:{user_name: 'Thomas',
                                email: 'thomas@craft.com',
+                               gender: 'Male',
                                password: 'password',
                                password_confirmation: 'password'}}, headers
 
@@ -23,6 +24,7 @@ describe Api::V1::RegistrationsController do
       it 'with an invalid password confirmation returns error message' do
         post '/api/v1/users', {user:{user_name: 'Thomas',
                                      email: 'thomas@craft.com',
+                                     gender: 'Male',
                                      password: 'password',
                                      password_confirmation: 'wrong_password'}}, headers
         expect(response_json['errors']['password_confirmation']).to eq(['doesn\'t match Password'])
@@ -32,6 +34,7 @@ describe Api::V1::RegistrationsController do
       it 'with an invalid email returns error message' do
         post '/api/v1/users', {user:{user_name: 'Thomas',
                                      email: 'thomas@craft',
+                                     gender: 'Male',
                                      password: 'password',
                                      password_confirmation: 'password'}}, headers
         expect(response_json['errors']['email']).to eq(['is invalid'])
@@ -42,6 +45,7 @@ describe Api::V1::RegistrationsController do
         FactoryGirl.create(:user, email: 'thomas@craft.com')
         post '/api/v1/users', {user:{user_name: 'Thomas',
                                      email: 'thomas@craft.com',
+                                     gender: 'Male',
                                      password: 'password',
                                      password_confirmation: 'password'}}, headers
         expect(response_json['errors']['email']).to eq(['has already been taken'])

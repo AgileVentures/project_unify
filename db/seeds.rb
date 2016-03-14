@@ -18,6 +18,7 @@ AdminUser.create!(
     email:     Faker::Internet.email,
     password: 'password',
     password_confirmation: 'password',
+    gender: 'male',
     latitude:  Faker::Address.latitude,
     longitude: Faker::Address.longitude 
   )
