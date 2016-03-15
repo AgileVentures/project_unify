@@ -98,5 +98,5 @@ Then(/^I should not see the link "([^"]*)"$/) do |link|
 end
 
 And(/^I select "([^"]*)" from "([^"]*)"$/) do |option, target|
-  page.select(option, :from => target)
+  page.select(option, from: target)
 end
