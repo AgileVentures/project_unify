@@ -96,3 +96,7 @@ end
 Then(/^I should not see the link "([^"]*)"$/) do |link|
   expect(page).not_to have_link link, exact: true
 end
+
+And(/^I select "([^"]*)" from "([^"]*)"$/) do |option, target|
+  page.select(option, from: target)
+end
