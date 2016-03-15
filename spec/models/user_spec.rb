@@ -12,7 +12,6 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :email }
     it { is_expected.to have_db_column :longitude }
     it { is_expected.to have_db_column :latitude }
-    it { is_expected.to have_db_column :street }
     it { is_expected.to have_db_column :city }
     it { is_expected.to have_db_column :state }
     it { is_expected.to have_db_column :country }
@@ -143,7 +142,6 @@ RSpec.describe User, type: :model do
     let(:user) { FactoryGirl.create(:user, user_name: 'Zmago', latitude: 45.960491, longitude: 13.6599124 ) }
   
     it 'should set the address to user' do
-      expect(user.street).to eq '3 Damber'
       expect(user.city).to eq 'Kromberk'
       expect(user.state).to eq 'Nova Gorica'
       expect(user.country).to eq 'Slovenia'
