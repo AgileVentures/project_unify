@@ -4,12 +4,12 @@ Feature: As a system admin
 
   Background:
     Given the following users exist
-      | user_name | email             | password  | password_confirmation | private |
-      | Thomas    | thomas@mail.com   | password1 | password1             | false   |
-      | Mazen     | mazen@gmail.com   | password2 | password2             | false   |
-      | Tarek     | tarek@gmail.com   | password3 | password3             | false   |
-      | Ivan      | ivan@hotmai.com   | password4 | password4             | false   |
-      | Anders    | anders@hotmai.com | password4 | password4             | true    |
+      | user_name | email             | password  | password_confirmation | private | gender |
+      | Thomas    | thomas@mail.com   | password1 | password1             | false   | Male   |
+      | Mazen     | mazen@gmail.com   | password2 | password2             | false   | Female |
+      | Tarek     | tarek@gmail.com   | password3 | password3             | false   | Male   |
+      | Ivan      | ivan@hotmai.com   | password4 | password4             | false   | Male   |
+      | Anders    | anders@hotmai.com | password4 | password4             | true    | Female |
     Given the admin account is set up
     Given I am logged in as admin
     Given I click on "Users"
@@ -24,12 +24,14 @@ Feature: As a system admin
   Scenario: View user
     And I click on "Show" for "Mazen"
     Then I should see "Mazen"
+    And I should see "Female"
     And I should see "mazen@gmail.com"
     And I should see "Created at"
 
   Scenario: Create a user
     And I click on "Create User"
     And I fill in "User name" with "Tony"
+    And I select "Male" from "Gender"
     And I fill in "Email" with "tony@outlook.com"
     And I fill in "Password" with "password5"
     And I fill in "Password confirmation" with "password5"
