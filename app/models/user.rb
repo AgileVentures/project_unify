@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   geocoded_by :address
   reverse_geocoded_by :latitude, :longitude, address: :location do |obj,results|
     if geo = results.first
-      obj.street   = geo.street_address
       obj.city     = geo.city
       obj.state    = geo.state
       obj.country  = geo.country
@@ -58,7 +57,7 @@ class User < ActiveRecord::Base
   private
   
   def address
-    [street, city, state, country].compact.join(', ')
+    [city, state, country].compact.join(', ')
   end
   
 end
