@@ -139,9 +139,10 @@ RSpec.describe User, type: :model do
   end
 
   describe 'Geocoder' do
-    let(:user) { FactoryGirl.create(:user, user_name: 'Zmago', latitude: 45.960491, longitude: 13.6599124 ) }
+    let!(:user) { FactoryGirl.create(:user, user_name: 'Zmago', latitude: 45.960491, longitude: 13.6599124 ) }
   
     it 'should set the address to user' do
+     
       expect(user.city).to eq 'Kromberk'
       expect(user.state).to eq 'Nova Gorica'
       expect(user.country).to eq 'Slovenia'
