@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.2.5.1'
+gem 'rails', '4.2.5.2'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -17,6 +17,11 @@ gem 'apipie-rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'acts-as-taggable-on'
 gem 'devise'
+gem 'simple_token_authentication', '~> 1.0'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'geocoder'
+gem 'fb_graph2'
 
 group :development, :test do
   gem 'coveralls', require: false
@@ -42,5 +47,12 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'poltergeist'
+  gem 'rack-test'
+  gem 'vcr'
+  gem 'webmock'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
