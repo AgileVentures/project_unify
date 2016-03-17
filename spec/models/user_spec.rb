@@ -152,4 +152,18 @@ RSpec.describe User, type: :model do
     it { is_expected.to allow_values('Male', 'Female', 'male', 'female').for(:gender)}
     it { is_expected.to_not allow_values('Ma', 'asdf', '', 12).for(:gender)}
   end
+  
+  describe 'Friendships' do
+    let(:user_1) { FactoryGirl.create(:user) }
+    let(:user_2) { FactoryGirl.create(:user) }
+    let(:user_3) { FactoryGirl.create(:user) }
+    
+    it 'user should be able to add a friend' do
+      user_1.invite user_2
+      user_1.invite user_3
+      user_2.approve user_1
+      user_3.approve user_1
+      expect(user_1.friends).to eq [user_2, user_3]
+    end
+  end
 end
