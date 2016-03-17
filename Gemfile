@@ -24,6 +24,7 @@ gem 'geocoder'
 gem 'fb_graph2'
 gem 'mailboxer'
 gem 'friendly_id', '~> 5.0.0'
+gem 'amistad'
 
 group :development, :test do
   gem 'coveralls', require: false
