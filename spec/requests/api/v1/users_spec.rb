@@ -55,7 +55,9 @@ describe Api::V1::UsersController do
                                   country: resource.country,
                                   email: resource.email,
                                   skills: resource.skill_list.reverse,
-                                  created_at: resource.created_at}}
+                                  created_at: resource.created_at,
+                                  friends: resource.friends,
+                                  pending_friendships: resource.pending_invited_by}}
       expect(response_json).to eq JSON.parse(expected_response.to_json)
     end
 

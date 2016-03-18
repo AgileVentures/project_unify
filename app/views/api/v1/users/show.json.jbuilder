@@ -10,4 +10,13 @@ json.user do
   json.email user.email
   json.skills user.skill_list
   json.created_at user.created_at
+  json.friends user.friends do |friend|
+    json.name friend.name
+    json.url url_for(friend)
+  end
+  if current_user
+    json.pending_friendships user.pending_invited_by do |pending|
+      json.name pending.name
+    end
+  end
 end
