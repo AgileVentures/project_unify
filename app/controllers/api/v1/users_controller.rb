@@ -27,5 +27,16 @@ class Api::V1::UsersController < ApiController
       render json: {errors: user.errors}, status: 401
     end
   end
+  
+  def invite_friend(friend)
+    user = User.find(params[:id])
+    if user.authentication_token == params[:user_token]
+      user.invite(params[:invited_firend])
+      render json: {message: 'success'}
+    else
+      user.errors.add(:users, 'could not perform operation')
+      render json: {errors: user.errors}, status: 401
+    end
+  end
 end
 
