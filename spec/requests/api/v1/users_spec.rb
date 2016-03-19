@@ -48,6 +48,7 @@ describe Api::V1::UsersController do
       get "/api/v1/users/#{resource.id}", {}, headers
       expected_response = {user: {id: resource.id,
                                   user_name: resource.user_name,
+                                  gender: resource.gender,
                                   lat: resource.latitude,
                                   lng: resource.longitude,
                                   city: resource.city,

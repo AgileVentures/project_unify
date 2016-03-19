@@ -12,10 +12,10 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column :email }
     it { is_expected.to have_db_column :longitude }
     it { is_expected.to have_db_column :latitude }
-    it { is_expected.to have_db_column :street }
     it { is_expected.to have_db_column :city }
     it { is_expected.to have_db_column :state }
     it { is_expected.to have_db_column :country }
+    it { is_expected.to have_db_column :gender }
     it { is_expected.to respond_to :mentor }
     it { is_expected.to respond_to :private }
     it { is_expected.to respond_to :password }
@@ -142,10 +142,14 @@ RSpec.describe User, type: :model do
     let(:user) { FactoryGirl.create(:user, user_name: 'Zmago', latitude: 45.960491, longitude: 13.6599124 ) }
   
     it 'should set the address to user' do
-      expect(user.street).to eq '3 Damber'
       expect(user.city).to eq 'Kromberk'
       expect(user.state).to eq 'Nova Gorica'
       expect(user.country).to eq 'Slovenia'
     end
+  end
+  
+  describe 'Gender field' do
+    it { is_expected.to allow_values('Male', 'Female', 'male', 'female').for(:gender)}
+    it { is_expected.to_not allow_values('Ma', 'asdf', '', 12).for(:gender)}
   end
 end
