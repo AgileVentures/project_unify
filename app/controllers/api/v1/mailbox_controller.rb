@@ -31,9 +31,7 @@ class Api::V1::MailboxController < ApiController
   end
 
 
-  def unread_messages_count
-    # how to get the number of unread messages for the current user
-    # using mailboxer
-    @user.mailbox.inbox(unread: true).count(:id, distinct: true)
+  def messages_count
+    render json: {messages_count: @user.messages_count, unread_messages_count: @user.unread_messages_count}
   end
 end

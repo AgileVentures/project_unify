@@ -31,6 +31,18 @@ describe Api::V1::MailboxController do
       expect(response_json['error']).to eq expected_response
       expect(response.status).to eq 401
     end
+
+    it '#messages_count' do
+      get '/api/v1/mailbox/messages_count', {}, no_headers
+      expect(response_json['error']).to eq expected_response
+      expect(response.status).to eq 401
+    end
+
+    it '#compose' do
+      post '/api/v1/mailbox/compose', {}, no_headers
+      expect(response_json['error']).to eq expected_response
+      expect(response.status).to eq 401
+    end
   end
 
   describe 'Inbox' do
@@ -59,13 +71,6 @@ describe Api::V1::MailboxController do
   end
 
   describe 'Compose' do
-    let(:expected_response) { 'You need to sign in or sign up before continuing.' }
-
-    it 'should require authentication' do
-      post '/api/v1/mailbox/compose', {receiver_id: receiver_1.id, subject: 'Yo yo!', message: 'Wanna hang out?'}, no_headers
-      expect(response_json['error']).to eq expected_response
-      expect(response.status).to eq 401
-    end
 
     it 'sends a message with valid settings' do
       post '/api/v1/mailbox/compose', {receiver_id: receiver_1.id, subject: 'Yo yo!', message: 'Wanna hang out?'}, sender_headers
@@ -75,6 +80,22 @@ describe Api::V1::MailboxController do
     it 'rejects a message without receiver' do
       post '/api/v1/mailbox/compose', {receiver_id: 999999, subject: 'Yo yo!', message: 'Wanna hang out?'}, sender_headers
       expect(response_json['error']).to eq 'failed to create message'
+    end
+
+  end
+
+  describe 'Message count' do
+
+    before do
+      receiver_1.send_message(sender, 'second message', 'subject 2')
+      receiver_1_conversation = sender.mailbox.inbox.first
+      sender.reply_to_conversation(receiver_1_conversation, 'Reply body 1')
+    end
+
+    it 'returns message count' do
+      get '/api/v1/mailbox/messages_count', {}, sender_headers
+      expect(response_json['messages_count']).to eq 1
+      expect(response_json['unread_messages_count']).to eq 1
     end
 
   end
