@@ -245,10 +245,6 @@ Devise.setup do |config|
                     scope: 'email, publish_actions',
                     info_fields: 'email, name, gender',
                     provider_ignores_state: true,
-                    client_options: {
-                        site: 'https://graph.facebook.com/v2.5',
-                        authorize_url: 'https://www.facebook.com/v2.5/dialog/oauth'
-                    },
                     token_params: {parse: :json}
 
 
@@ -256,10 +252,6 @@ Devise.setup do |config|
     config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'],
                     scope: 'email. publish_actions',
                     info_fields: 'email, name, gender',
-                    client_options: {
-                        site: 'https://graph.facebook.com/v2.5',
-                        authorize_url: 'https://www.facebook.com/v2.5/dialog/oauth'
-                    },
                     token_params: {parse: :json}
   end
 
