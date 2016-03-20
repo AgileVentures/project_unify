@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get 'unify/:id', controller: :users, action: :unify, as: :unify, constraints: {format: /(json)/}
       post 'skills/:id', controller: :users, action: :skills, as: :skills, constraints: {format: /(json)/}
       resources :activities, only: [:index]
+      post 'mailbox/compose', controller: :mailbox, action: :compose, as: :mailbox_compose
       get 'mailbox/inbox', controller: :mailbox, action: :inbox, as: :mailbox_inbox
       get 'mailbox/sent', controller: :mailbox, action: :sent, as: :mailbox_sent
       get 'mailbox/trash', controller: :mailbox, action: :trash, as: :mailbox_trash

@@ -4,7 +4,11 @@ class Api::V1::MailboxController < ApiController
   def inbox
     @inbox = @user.mailbox.inbox
     @active = :inbox
-   # render json: {inbox: @inbox }
+  end
+
+  def compose
+    receiver = User.find(params[:receiver_id])
+    @user.send_message(receiver, params[:message], params[:subject])
   end
 
   def sent
