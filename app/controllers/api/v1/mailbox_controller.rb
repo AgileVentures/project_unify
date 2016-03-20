@@ -7,8 +7,13 @@ class Api::V1::MailboxController < ApiController
   end
 
   def compose
-    receiver = User.find(params[:receiver_id])
-    @user.send_message(receiver, params[:message], params[:subject])
+    receiver = User.find_by_id(params[:receiver_id])
+    if receiver
+      @user.send_message(receiver, params[:message], params[:subject])
+      render json: {message: 'success'}
+    else
+      render json: {error: 'failed to create message'}
+    end
   end
 
   def sent

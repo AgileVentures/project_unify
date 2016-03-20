@@ -58,4 +58,25 @@ describe Api::V1::MailboxController do
     end
   end
 
+  describe 'Compose' do
+    let(:expected_response) { 'You need to sign in or sign up before continuing.' }
+
+    it 'should require authentication' do
+      post '/api/v1/mailbox/compose', {receiver_id: receiver_1.id, subject: 'Yo yo!', message: 'Wanna hang out?'}, no_headers
+      expect(response_json['error']).to eq expected_response
+      expect(response.status).to eq 401
+    end
+
+    it 'sends a message with valid settings' do
+      post '/api/v1/mailbox/compose', {receiver_id: receiver_1.id, subject: 'Yo yo!', message: 'Wanna hang out?'}, sender_headers
+      expect(response_json['message']).to eq 'success'
+    end
+
+    it 'rejects a message without receiver' do
+      post '/api/v1/mailbox/compose', {receiver_id: 999999, subject: 'Yo yo!', message: 'Wanna hang out?'}, sender_headers
+      expect(response_json['error']).to eq 'failed to create message'
+    end
+
+  end
+
 end
