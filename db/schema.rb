@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315063140) do
+ActiveRecord::Schema.define(version: 20160316113545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,28 +22,6 @@ ActiveRecord::Schema.define(version: 20160315063140) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
-
-  create_table "authentication_tokens", force: :cascade do |t|
-    t.string   "body"
-    t.integer  "user_id"
-    t.datetime "last_used_at"
-    t.string   "ip_address"
-    t.string   "user_agent"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "authentication_tokens", ["user_id"], name: "index_authentication_tokens_on_user_id", using: :btree
-
-  create_table "identities", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -90,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160315063140) do
     t.string   "state"
     t.string   "country"
     t.string   "gender"
+    t.inet     "ip_address"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
