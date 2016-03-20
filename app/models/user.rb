@@ -72,6 +72,14 @@ class User < ActiveRecord::Base
   def mailboxer_email(object)
     self.email
   end
+
+  def messages_count
+    self.mailbox.inbox.count(:id, distinct: true)
+  end
+
+  def unread_messages_count
+    self.mailbox.inbox(unread: true).count(:id, distinct: true)
+  end
   
   private
   

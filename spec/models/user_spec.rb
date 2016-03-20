@@ -21,7 +21,8 @@ RSpec.describe User, type: :model do
     it { is_expected.to respond_to :password }
   end
 
-
+  it { is_expected.to respond_to :messages_count }
+  it { is_expected.to respond_to :unread_messages_count }
   it { is_expected.to respond_to :password_confirmation }
   it { is_expected.not_to allow_value("").for(:password) }
   it { is_expected.not_to allow_value("").for(:email) }
