@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   acts_as_token_authenticatable
   acts_as_taggable_on :skills
+  acts_as_messageable
+
   after_validation :reverse_geocode, if: lambda{ |obj| obj.latitude.present? || obj.longitude.present? }
   after_validation :geocode, if: lambda{ |obj| obj.ip_address.present? }
   
@@ -61,6 +63,14 @@ class User < ActiveRecord::Base
       obj.state    = geo.state
       obj.country  = geo.country
     end
+  end
+
+  def mailboxer_name
+    self.user_name
+  end
+
+  def mailboxer_email(object)
+    self.email
   end
   
   private
