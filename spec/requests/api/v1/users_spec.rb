@@ -131,7 +131,7 @@ describe Api::V1::UsersController do
 
   end
   
-  describe 'POST api/v1/user/:id/friendship/:id' do
+  describe 'GET api/v1/user/:id/friendship/:friend_id' do
     let(:user_1) { FactoryGirl.create(:user) }
     let(:user_2) { FactoryGirl.create(:user) }  
     
@@ -149,6 +149,37 @@ describe Api::V1::UsersController do
       expect(user_2.invited_by? user_1)
       expect(user_2.invited? user_1)
       expect(user_2.pending_invited_by).to eq [user_1]
+    end
+  end
+  
+  describe 'GET api/v1/user/:id/friendship/:friend_id/confirm' do
+    let(:user_1) { FactoryGirl.create(:user) }
+    let(:user_2) { FactoryGirl.create(:user) } 
+    let(:user_3) { FactoryGirl.create(:user) } 
+    
+    let(:headers) { {HTTP_X_USER_EMAIL: user_1.email, HTTP_X_USER_TOKEN: user_1.authentication_token, HTTP_ACCEPT: 'application/json'} }
+    
+    it 'should require authentication' do
+      user_1.invite user_2
+      get "/api/v1/user/#{user_2.id}/friendship/#{user_1.id}/confirm"
+      expect(response_json['error']).to eq 'You need to sign in or sign up before continuing.'
+      expect(response.status).to eq 401
+    end
+    
+    it 'should confirm a friendship' do
+      user_2.invite user_1
+      get "/api/v1/user/#{user_1.id}/friendship/#{user_2.id}/confirm", {}, headers
+      expect(response_json["message"]).to eq "successfully confirmed friendship with #{user_2.user_name}"
+      expect(user_2.friend_with? user_1)
+      expect(user_1.friend_with? user_2)
+    end
+    
+    it 'should have multiple friendships' do
+      user_2.invite user_1
+      user_3.invite user_1
+      get "/api/v1/user/#{user_1.id}/friendship/#{user_2.id}/confirm", {}, headers
+      get "/api/v1/user/#{user_1.id}/friendship/#{user_3.id}/confirm", {}, headers
+      expect(user_1.friends).to eq [user_2, user_3]
     end
   end
 end
