@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       post 'skills/:id', controller: :users, action: :skills, as: :skills, constraints: {format: /(json)/}
       get 'user/:id/friendship/:friend_id', controller: :users, action: :friendship, as: :friendship,constraints: {format: /(json)/}
       get 'user/:id/friendship/:friend_id/confirm', controller: :users, action: :confirm_frienship , as: :confirm_frienship, constraints: {format: /(json)/}
+      get 'user/:id/friendship/:friend_id/block', controller: :users, action: :block_frienship , as: :block_frienship, constraints: {format: /(json)/}
       resources :activities, only: [:index]
     end
 
