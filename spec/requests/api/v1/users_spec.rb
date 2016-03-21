@@ -130,7 +130,20 @@ describe Api::V1::UsersController do
     end
 
   end
-
-
+  
+  describe 'POST api/v1/user/:id/friendship/:id' do
+    let(:user_1) { FactoryGirl.create(:user) }
+    let(:user_2) { FactoryGirl.create(:user) }  
+    
+    let(:headers) { {HTTP_X_USER_EMAIL: user_1.email, HTTP_X_USER_TOKEN: user_1.authentication_token, HTTP_ACCEPT: 'application/json'} }
+    
+    it 'should require authentication' do
+      get "/api/v1/user/#{user_2.id}/friendship/#{user_1.id}"
+      expect(response_json['error']).to eq 'You need to sign in or sign up before continuing.'
+      expect(response.status).to eq 401
+    end  
+    
+    
+  end
 end
 

@@ -28,8 +28,9 @@ class Api::V1::UsersController < ApiController
     end
   end
   
-  def invite_friend(friend)
-    user = User.find(params[:id])
+  def friendship(friend)
+    user = User.find(params[:user_id])
+    binding.pry
     if user.authentication_token == params[:user_token]
       user.invite(params[:invited_firend])
       render json: {message: 'success'}
