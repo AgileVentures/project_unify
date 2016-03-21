@@ -242,24 +242,16 @@ Devise.setup do |config|
 
   if Rails.env.development? || Rails.env.test?
     config.omniauth :facebook, '1621623384764301', '52edb8b7ca0af425a4cb406781004803',
-                    scope: 'email, publish_actions',
+                    scope: 'email',
                     info_fields: 'email, name, gender',
                     provider_ignores_state: true,
-                    client_options: {
-                        site: 'https://graph.facebook.com/v2.5',
-                        authorize_url: 'https://www.facebook.com/v2.5/dialog/oauth'
-                    },
                     token_params: {parse: :json}
 
 
   else
     config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'],
-                    scope: 'email. publish_actions',
+                    scope: 'email',
                     info_fields: 'email, name, gender',
-                    client_options: {
-                        site: 'https://graph.facebook.com/v2.5',
-                        authorize_url: 'https://www.facebook.com/v2.5/dialog/oauth'
-                    },
                     token_params: {parse: :json}
   end
 
