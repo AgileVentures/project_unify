@@ -28,12 +28,12 @@ class Api::V1::UsersController < ApiController
     end
   end
   
-  def friendship(friend)
-    user = User.find(params[:user_id])
-    binding.pry
+  def friendship
+    user = User.find(params[:id])
+    friend = User.find(params[:friend_id])
     if user.authentication_token == params[:user_token]
-      user.invite(params[:invited_firend])
-      render json: {message: 'success'}
+      user.invite friend
+      render json: {message: "successfully invidted user #{friend.user_name}"}
     else
       user.errors.add(:users, 'could not perform operation')
       render json: {errors: user.errors}, status: 401

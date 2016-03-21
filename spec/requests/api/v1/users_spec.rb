@@ -143,7 +143,13 @@ describe Api::V1::UsersController do
       expect(response.status).to eq 401
     end  
     
-    
+    it 'should make frienships between users' do
+      get "/api/v1/user/#{user_1.id}/friendship/#{user_2.id}", {}, headers
+      expect(response_json["message"]).to eq "successfully invidted user #{user_2.user_name}"
+      expect(user_2.invited_by? user_1)
+      expect(user_2.invited? user_1)
+      expect(user_2.pending_invited_by).to eq [user_1]
+    end
   end
 end
 
