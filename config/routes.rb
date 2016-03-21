@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show], constraints: {format: /(json)/}
       get 'unify/:id', controller: :users, action: :unify, as: :unify, constraints: {format: /(json)/}
       post 'skills/:id', controller: :users, action: :skills, as: :skills, constraints: {format: /(json)/}
-      get 'user/:id/friendship/:id', controller: :users, action: :friendship, as: :friendship,constraints: {format: /(json)/}
+      get 'user/:id/friendship/:friend_id', controller: :users, action: :friendship, as: :friendship,constraints: {format: /(json)/}
       resources :activities, only: [:index]
       post 'mailbox/conversations/compose', controller: :mailbox, action: :compose, as: :mailbox_compose
       post 'mailbox/conversations/reply', controller: :mailbox, action: :reply, as: :mailbox_reply
