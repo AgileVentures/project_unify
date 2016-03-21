@@ -16,6 +16,16 @@ class Api::V1::MailboxController < ApiController
     end
   end
 
+  def update
+    conversation = @user.mailbox.inbox(id: params[:id]).first
+    if conversation.mark_as_read(@user)
+      render json: {massage: 'success'}
+    else
+      render json: {error: 'something went wrong'}
+    end
+
+  end
+
   def sent
     @sent = @user.mailbox.sentbox
     @active = :sent

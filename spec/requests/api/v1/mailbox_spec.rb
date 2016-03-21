@@ -88,8 +88,8 @@ describe Api::V1::MailboxController do
 
     before do
       receiver_1.send_message(sender, 'second message', 'subject 2')
-      receiver_1_conversation = sender.mailbox.inbox.first
-      sender.reply_to_conversation(receiver_1_conversation, 'Reply body 1')
+      @receiver_1_conversation = sender.mailbox.inbox.first
+      sender.reply_to_conversation(@receiver_1_conversation, 'Reply body 1')
     end
 
     it 'returns message count' do
@@ -97,6 +97,23 @@ describe Api::V1::MailboxController do
       expect(response_json['messages_count']).to eq 1
       expect(response_json['unread_messages_count']).to eq 1
     end
+
+    describe 'marks a conversation as read' do
+      before do
+        post "/api/v1/mailbox/message/#{@receiver_1_conversation.id}", {}, sender_headers
+      end
+
+      it '#is_read? returns true' do
+        expect(@receiver_1_conversation.is_read? sender).to eq true
+      end
+
+      it '#unread_messages_count returns 0' do
+        get '/api/v1/mailbox/messages_count', {}, sender_headers
+        expect(response_json['messages_count']).to eq 1
+        expect(response_json['unread_messages_count']).to eq 0
+      end
+    end
+
 
   end
 

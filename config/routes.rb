@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       post 'skills/:id', controller: :users, action: :skills, as: :skills, constraints: {format: /(json)/}
       resources :activities, only: [:index]
       post 'mailbox/compose', controller: :mailbox, action: :compose, as: :mailbox_compose
+      post 'mailbox/message/:id', controller: :mailbox, action: :update, as: :mailbox_update
       get 'mailbox/inbox', controller: :mailbox, action: :inbox, as: :mailbox_inbox
       get 'mailbox/sent', controller: :mailbox, action: :sent, as: :mailbox_sent
       get 'mailbox/trash', controller: :mailbox, action: :trash, as: :mailbox_trash
