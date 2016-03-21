@@ -87,6 +87,7 @@ describe Api::V1::MailboxController do
   describe 'Message count' do
 
     before do
+      sender.send_message(receiver_1, 'first message', 'subject 1')
       receiver_1.send_message(sender, 'second message', 'subject 2')
       @receiver_1_conversation = sender.mailbox.inbox.first
       sender.reply_to_conversation(@receiver_1_conversation, 'Reply body 1')
