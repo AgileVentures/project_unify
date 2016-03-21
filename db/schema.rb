@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160317101136) do
+=======
+ActiveRecord::Schema.define(version: 20160316113545) do
+>>>>>>> 524351fb0c82a689de92a4b9205a781eae65ce8a
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160317101136) do
     t.datetime "updated_at",      null: false
   end
 
+<<<<<<< HEAD
   create_table "friendships", force: :cascade do |t|
     t.integer "friendable_id"
     t.integer "friend_id"
@@ -32,6 +37,8 @@ ActiveRecord::Schema.define(version: 20160317101136) do
 
   add_index "friendships", ["friendable_id", "friend_id"], name: "index_friendships_on_friendable_id_and_friend_id", unique: true, using: :btree
 
+=======
+>>>>>>> 524351fb0c82a689de92a4b9205a781eae65ce8a
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -77,6 +84,7 @@ ActiveRecord::Schema.define(version: 20160317101136) do
     t.string   "state"
     t.string   "country"
     t.string   "gender"
+    t.inet     "ip_address"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree

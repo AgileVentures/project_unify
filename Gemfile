@@ -48,6 +48,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'poltergeist'
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
   gem 'rack-test'
   gem 'vcr'
   gem 'webmock'

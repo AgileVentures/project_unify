@@ -2,16 +2,9 @@ class User < ActiveRecord::Base
   include Amistad::FriendModel
   acts_as_token_authenticatable
   acts_as_taggable_on :skills
+  after_validation :reverse_geocode, if: lambda{ |obj| obj.latitude.present? || obj.longitude.present? }
+  after_validation :geocode, if: lambda{ |obj| obj.ip_address.present? }
   
-  geocoded_by :address
-  reverse_geocoded_by :latitude, :longitude, address: :location do |obj,results|
-    if geo = results.first
-      obj.city     = geo.city
-      obj.state    = geo.state
-      obj.country  = geo.country
-    end
-  end
-  after_validation :geocode, :reverse_geocode
   validates :gender,
     :inclusion  => { :in => [ 'Male', 'Female', 'male', 'female', nil ],
     :message    => "%{value} is not a valid gender" }
@@ -53,6 +46,22 @@ class User < ActiveRecord::Base
 
   def reset_authentication_token
     self.update_attribute(:authentication_token, nil)
+  end
+  
+  reverse_geocoded_by :latitude, :longitude, address: :location do |obj,results|
+    if geo = results.first
+      obj.city     = geo.city
+      obj.state    = geo.state
+      obj.country  = geo.country
+    end
+  end
+  
+  geocoded_by :ip_address do |obj,results|
+    if geo = results.first
+      obj.city     = geo.city
+      obj.state    = geo.state
+      obj.country  = geo.country
+    end
   end
   
   private
