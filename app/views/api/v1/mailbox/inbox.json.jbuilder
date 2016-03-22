@@ -1,10 +1,11 @@
+binding.pry
 json.conversations(@inbox) do |conversation|
   json.id conversation.id
   json.subject conversation.subject
   json.created_at conversation.created_at
   json.from do
-    json.id conversation.original_message.sender.id
-    json.user_name conversation.original_message.sender.user_name
+    json.id conversation.original_message.recipients.delete_if{|v| v.user_name === conversation.original_message.sender.user_name}.first.id
+    json.user_name conversation.original_message.recipients.delete_if{|v| v.user_name === conversation.original_message.sender.user_name}.first.id
   end
   json.messages(conversation.messages) do |message|
     json.body message.body

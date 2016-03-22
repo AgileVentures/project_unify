@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320182839) do
+ActiveRecord::Schema.define(version: 20160321140859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 20160320182839) do
   end
 
   add_index "authentication_tokens", ["user_id"], name: "index_authentication_tokens_on_user_id", using: :btree
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer "friendable_id"
+    t.integer "friend_id"
+    t.integer "blocker_id"
+    t.boolean "pending",       default: true
+  end
+
+  add_index "friendships", ["friendable_id", "friend_id"], name: "index_friendships_on_friendable_id_and_friend_id", unique: true, using: :btree
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
@@ -144,6 +153,7 @@ ActiveRecord::Schema.define(version: 20160320182839) do
     t.string   "country"
     t.string   "gender"
     t.inet     "ip_address"
+    t.string   "introduction"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
