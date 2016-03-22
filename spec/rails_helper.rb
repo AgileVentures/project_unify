@@ -1,6 +1,11 @@
 ENV['RAILS_ENV'] ||= 'test'
+require 'simplecov'
 require 'coveralls'
 Coveralls.wear_merged!
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+SimpleCov.start 'rails' do
+  add_filter 'app/secrets'
+end
 require File.expand_path('../../config/environment', __FILE__)
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 abort('The Rails environment is running in production mode!') if Rails.env.production?
