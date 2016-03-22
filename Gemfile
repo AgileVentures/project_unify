@@ -23,7 +23,6 @@ gem 'omniauth-facebook'
 gem 'geocoder'
 gem 'fb_graph2'
 gem 'mailboxer'
-gem 'amistad'
 
 group :development, :test do
   gem 'coveralls', require: false

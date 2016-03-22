@@ -18,7 +18,6 @@ describe Api::V1::SessionsController do
                                     'user' => {
                                         'id' => user.id,
                                         'user_name' => user.user_name,
-                                        'introduction' => user.introduction,
                                         'email' => user.email,
                                         'mentor' => false,
                                         'lat' => user.latitude,
