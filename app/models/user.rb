@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Amistad::FriendModel
   acts_as_token_authenticatable
   acts_as_taggable_on :skills
   acts_as_messageable
@@ -9,6 +10,8 @@ class User < ActiveRecord::Base
   validates :gender,
     :inclusion  => { :in => [ 'Male', 'Female', 'male', 'female', nil ],
     :message    => "%{value} is not a valid gender" }
+
+  validates_length_of :introduction, maximum: 140, message: "Maximum length is 140 characters"
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
