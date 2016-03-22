@@ -74,11 +74,11 @@ class User < ActiveRecord::Base
   end
 
   def messages_count
-    self.mailbox.inbox.count(:id, distinct: true)
+    self.mailbox.conversations.count(:id, distinct: true)
   end
 
   def unread_messages_count
-    self.mailbox.inbox(unread: true).count(:id, distinct: true)
+    self.mailbox.conversations(unread: true).count(:id, distinct: true)
   end
   
   private

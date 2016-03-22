@@ -1,4 +1,4 @@
-json.inbox(@inbox) do |conversation|
+json.conversations(@inbox) do |conversation|
   json.id conversation.id
   json.subject conversation.subject
   json.created_at conversation.created_at
