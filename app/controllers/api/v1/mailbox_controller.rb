@@ -16,6 +16,16 @@ class Api::V1::MailboxController < ApiController
     end
   end
 
+  def reply
+    conversation = @user.mailbox.conversations.find{|conversation| conversation.id == params[:conversation_id].to_i }
+    if conversation
+      @user.reply_to_conversation(conversation, params[:message], params[:subject])
+      render json: {message: 'success'}
+    else
+      render json: {error: 'failed to create message'}
+    end
+  end
+
   def update
     conversation = @user.mailbox.conversations(id: params[:id]).first
     if conversation.mark_as_read(@user)

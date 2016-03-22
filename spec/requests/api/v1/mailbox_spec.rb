@@ -37,6 +37,12 @@ describe Api::V1::MailboxController do
       expect(response_json['error']).to eq expected_response
       expect(response.status).to eq 401
     end
+
+    it '#reply' do
+      post '/api/v1/mailbox/conversations/compose', {}, no_headers
+      expect(response_json['error']).to eq expected_response
+      expect(response.status).to eq 401
+    end
   end
 
   describe 'Conversations' do
@@ -73,6 +79,24 @@ describe Api::V1::MailboxController do
 
     it 'rejects a message without receiver' do
       post '/api/v1/mailbox/conversations/compose', {receiver_id: 999999, subject: 'Yo yo!', message: 'Wanna hang out?'}, sender_headers
+      expect(response_json['error']).to eq 'failed to create message'
+    end
+
+  end
+
+  describe 'Reply' do
+    before do
+      receiver_1.send_message(sender, 'second message', 'subject 2')
+      @conversation = sender.mailbox.conversations.first
+    end
+
+    it 'replies to  a message with valid settings' do
+      post '/api/v1/mailbox/conversations/reply', {conversation_id: @conversation.id, receiver_id: receiver_1.id, subject: 'Yo yo!', message: 'Wanna hang out?'}, sender_headers
+      expect(response_json['message']).to eq 'success'
+    end
+
+    it 'rejects a reply without receiver' do
+      post '/api/v1/mailbox/conversations/reply', {conversation_id: 999999, subject: 'Yo yo!', message: 'Wanna hang out?'}, sender_headers
       expect(response_json['error']).to eq 'failed to create message'
     end
 
