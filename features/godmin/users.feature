@@ -48,6 +48,7 @@ Feature: As a system admin
     And I should see "Thomas Ochman"
     And I should see "tochman@newmail.com"
 
+  @javascript
   Scenario: Delete user
     And I click on "Destroy" for "Ivan"
     Then I should see "User was successfully destroyed"
