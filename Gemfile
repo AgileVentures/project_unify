@@ -52,7 +52,6 @@ group :test do
   gem 'rack-test'
   gem 'vcr'
   gem 'webmock'
-  gem 'simplecov', require: false
 end
 
 group :production do
