@@ -51,7 +51,7 @@ describe Api::V1::MailboxController do
       get '/api/v1/mailbox/conversations', {}, receiver_1_headers
       first_message = response_json['conversations'].first
       expect(first_message['subject']).to eq 'subject 1'
-      expect(first_message['from']['user_name']).to eq 'Thomas'
+      expect(first_message['from']['user_name']).to eq 'Anders'
       expect(first_message['messages'].count).to eq 2
     end
 
