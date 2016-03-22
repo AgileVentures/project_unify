@@ -101,6 +101,6 @@ And(/^I select "([^"]*)" from "([^"]*)"$/) do |option, target|
   page.select(option, from: target)
 end
 
-Given (/^I wait for (\d+) seconds?$/) do |seconds|
+And(/^I wait for (\d+) seconds?$/) do |seconds|
   sleep seconds.to_i
 end
