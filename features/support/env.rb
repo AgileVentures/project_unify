@@ -1,5 +1,5 @@
 require 'coveralls'
-Coveralls.wear!
+Coveralls.wear_merged!
 require 'rack/test'
 require 'cucumber/rails'
 require 'capybara/poltergeist'
