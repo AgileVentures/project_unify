@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Amistad::FriendModel
   acts_as_token_authenticatable
   acts_as_taggable_on :skills
   after_validation :reverse_geocode, if: lambda{ |obj| obj.latitude.present? || obj.longitude.present? }

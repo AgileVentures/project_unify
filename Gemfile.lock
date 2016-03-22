@@ -39,6 +39,7 @@ GEM
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
     addressable (2.4.0)
+    amistad (0.10.2)
     apipie-rails (0.3.6)
       json
     arel (6.0.3)
@@ -366,6 +367,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  amistad
   apipie-rails
   brakeman
   bundler-audit
