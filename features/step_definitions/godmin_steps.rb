@@ -101,10 +101,10 @@ And(/^I select "([^"]*)" from "([^"]*)"$/) do |option, target|
   page.select(option, from: target)
 end
 
-
-And(/^I wait for (\d+) seconds?$/) do |seconds|
+Given (/^I wait for (\d+) seconds?$/) do |seconds|
   sleep seconds.to_i
 end
+
 Then(/^I should see "([^"]*)" in the url$/) do |text|
   expect(current_path).to have_content text
 end
