@@ -9,10 +9,12 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show], constraints: {format: /(json)/}
       get 'unify/:id', controller: :users, action: :unify, as: :unify, constraints: {format: /(json)/}
       post 'skills/:id', controller: :users, action: :skills, as: :skills, constraints: {format: /(json)/}
-      get 'user/:id/friendship/:friend_id', controller: :users, action: :friendship, as: :friendship,constraints: {format: /(json)/}
-      get 'user/:id/friendship/:friend_id/confirm', controller: :users, action: :confirm_frienship , as: :confirm_frienship, constraints: {format: /(json)/}
-      get 'user/:id/friendship/:friend_id/block', controller: :users, action: :block_frienship , as: :block_frienship, constraints: {format: /(json)/}
       resources :activities, only: [:index]
+      post 'mailbox/conversations/compose', controller: :mailbox, action: :compose, as: :mailbox_compose
+      post 'mailbox/conversations/:id', controller: :mailbox, action: :update, as: :mailbox_update
+      get 'mailbox/conversations', controller: :mailbox, action: :inbox, as: :mailbox_inbox
+      get 'mailbox/conversations/trash', controller: :mailbox, action: :trash, as: :mailbox_trash
+      get 'mailbox/conversations/messages_count', controller: :mailbox, action: :messages_count, as: :messages_count
     end
 
     namespace :v0 do

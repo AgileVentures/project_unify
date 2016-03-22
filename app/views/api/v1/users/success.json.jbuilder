@@ -3,7 +3,6 @@ json.message 'success'
 json.user do
   json.id user.id
   json.user_name user.user_name
-  json.introduction user.introduction
   json.email user.email
   json.mentor user.mentor
   json.lat user.latitude

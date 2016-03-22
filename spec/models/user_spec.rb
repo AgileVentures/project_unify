@@ -21,7 +21,8 @@ RSpec.describe User, type: :model do
     it { is_expected.to respond_to :password }
   end
 
-
+  it { is_expected.to respond_to :messages_count }
+  it { is_expected.to respond_to :unread_messages_count }
   it { is_expected.to respond_to :password_confirmation }
   it { is_expected.not_to allow_value("").for(:password) }
   it { is_expected.not_to allow_value("").for(:email) }
@@ -158,36 +159,5 @@ RSpec.describe User, type: :model do
   describe 'Gender field' do
     it { is_expected.to allow_values('Male', 'Female', 'male', 'female').for(:gender)}
     it { is_expected.to_not allow_values('Ma', 'asdf', '', 12).for(:gender)}
-  end
-  
-  describe 'Introduction field' do
-    let(:long_intro) { 'This introduction and short description of myself has obviously more than the allowed onehundredandfourty characters. Thats sad, because this is way too long for a short description of myself.' }
-    let(:short_intro) { 'My short intro' }
-
-    it 'raises error if :introduction is too long' do
-      expected_error = ActiveRecord::RecordInvalid
-      expected_message = 'Validation failed: Introduction Maximum length is 140 characters'
-      expect { FactoryGirl.create(:user, introduction: long_intro) }.to raise_error(expected_error, expected_message)
-    end
-    
-    it 'validates if :introduction is below 140 characters' do
-      expect(FactoryGirl.create(:user, introduction: short_intro)).to be_valid
-    end
-    
-     it { is_expected.to validate_length_of(:introduction) }
-  end
-
-  describe 'Friendships' do
-    let(:user_1) { FactoryGirl.create(:user) }
-    let(:user_2) { FactoryGirl.create(:user) }
-    let(:user_3) { FactoryGirl.create(:user) }
-    
-    it 'user should be able to add a friend' do
-      user_1.invite user_2
-      user_1.invite user_3
-      user_2.approve user_1
-      user_3.approve user_1
-      expect(user_1.friends).to eq [user_2, user_3]
-    end
   end
 end

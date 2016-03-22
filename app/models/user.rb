@@ -1,15 +1,14 @@
 class User < ActiveRecord::Base
-  include Amistad::FriendModel
   acts_as_token_authenticatable
   acts_as_taggable_on :skills
+  acts_as_messageable
+
   after_validation :reverse_geocode, if: lambda{ |obj| obj.latitude.present? || obj.longitude.present? }
   after_validation :geocode, if: lambda{ |obj| obj.ip_address.present? }
   
   validates :gender,
     :inclusion  => { :in => [ 'Male', 'Female', 'male', 'female', nil ],
     :message    => "%{value} is not a valid gender" }
-
-  validates_length_of :introduction, maximum: 140, message: "Maximum length is 140 characters"
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -64,6 +63,22 @@ class User < ActiveRecord::Base
       obj.state    = geo.state
       obj.country  = geo.country
     end
+  end
+
+  def mailboxer_name
+    self.user_name
+  end
+
+  def mailboxer_email(object)
+    self.email
+  end
+
+  def messages_count
+    self.mailbox.conversations.count(:id, distinct: true)
+  end
+
+  def unread_messages_count
+    self.mailbox.conversations(unread: true).count(:id, distinct: true)
   end
   
   private
