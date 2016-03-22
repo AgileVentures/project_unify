@@ -1,10 +1,5 @@
-require 'simplecov'
 require 'coveralls'
-SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-SimpleCov.start 'rails' do
-  add_filter 'app/secrets'
-end
-Coveralls.wear_merged!
+Coveralls.wear!
 require 'rack/test'
 require 'cucumber/rails'
 require 'capybara/poltergeist'
