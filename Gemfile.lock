@@ -402,7 +402,6 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   shoulda-matchers
   simple_token_authentication (~> 1.0)
-  simplecov
   spring
   therubyracer
   turbolinks
