@@ -120,7 +120,7 @@ describe Api::V1::MailboxController do
 
     describe 'marks a conversation as read' do
       before do
-        post "/api/v1/mailbox/conversations/#{@receiver_1_conversation.id}", {}, sender_headers
+        post '/api/v1/mailbox/conversations/update', {id: @receiver_1_conversation.id}, sender_headers
       end
 
       it '#is_read? returns true' do

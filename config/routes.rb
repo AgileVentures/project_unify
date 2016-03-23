@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       resources :activities, only: [:index]
       post 'mailbox/conversations/compose', controller: :mailbox, action: :compose, as: :mailbox_compose
       post 'mailbox/conversations/reply', controller: :mailbox, action: :reply, as: :mailbox_reply
-      post 'mailbox/conversations/:id', controller: :mailbox, action: :update, as: :mailbox_update
+      post 'mailbox/conversations/update', controller: :mailbox, action: :update, as: :mailbox_update
       get 'mailbox/conversations', controller: :mailbox, action: :inbox, as: :mailbox_inbox
       get 'mailbox/conversations/trash', controller: :mailbox, action: :trash, as: :mailbox_trash
       get 'mailbox/conversations/messages_count', controller: :mailbox, action: :messages_count, as: :messages_count
