@@ -54,7 +54,7 @@ describe Api::V1::MailboxController do
     end
 
     it 'displays conversations while displaying receivers inbox' do
-      get '/api/v1/mailbox/conversations', {}, receiver_1_headers
+      get '/api/v1/mailbox/conversations', {}, sender_headers
       first_message = response_json['conversations'].first
       expect(first_message['subject']).to eq 'subject 1'
       expect(first_message['from']['user_name']).to eq 'Anders'
@@ -95,7 +95,7 @@ describe Api::V1::MailboxController do
       expect(response_json['message']).to eq 'success'
     end
 
-    it 'rejects a reply without receiver' do
+    it 'rejects a reply without conversation' do
       post '/api/v1/mailbox/conversations/reply', {conversation_id: 999999, subject: 'Yo yo!', message: 'Wanna hang out?'}, sender_headers
       expect(response_json['error']).to eq 'failed to create message'
     end
