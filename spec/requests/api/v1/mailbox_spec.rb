@@ -48,6 +48,7 @@ describe Api::V1::MailboxController do
   describe 'Conversations' do
     before do
       sender.send_message(receiver_1, 'first message', 'subject 1')
+      receiver_1.send_message(sender, 'second message', 'subject 2')
       receiver_1.send_message(receiver_2, 'second message', 'subject 2')
       receiver_1_conversation = receiver_1.mailbox.inbox.first
       receiver_1.reply_to_conversation(receiver_1_conversation, 'Reply body 1')
