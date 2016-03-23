@@ -151,6 +151,8 @@ GEM
     foreigner (1.7.4)
       activerecord (>= 3.0.0)
     geocoder (1.3.1)
+    friendly_id (5.0.5)
+      activerecord (>= 4.0.0)
     gherkin (3.2.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -387,8 +389,12 @@ DEPENDENCIES
   devise
   factory_girl_rails
   faker
+<<<<<<< HEAD
   fb_graph2
   geocoder
+=======
+  friendly_id (~> 5.0.0)
+>>>>>>> 972423e4641e210997b5c85fd98a8a0bd7b7f7db
   godmin
   godmin-tags
   jbuilder (~> 2.0)

@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 20160321140859) do
     t.string   "gender"
     t.inet     "ip_address"
     t.string   "introduction"
+    t.string   "slug"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
