@@ -27,6 +27,7 @@ Feature: As a system admin
     And I should see "Female"
     And I should see "mazen@gmail.com"
     And I should see "Created at"
+    And I should see "mazen" in the url
 
   Scenario: Create a user
     And I click on "Create User"
@@ -55,4 +56,3 @@ Feature: As a system admin
     And I wait for 6 seconds
     Then I should not see "User was successfully destroyed"
     And I should see 3 instances of User
-

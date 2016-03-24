@@ -23,18 +23,6 @@ ActiveRecord::Schema.define(version: 20160321140859) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "authentication_tokens", force: :cascade do |t|
-    t.string   "body"
-    t.integer  "user_id"
-    t.datetime "last_used_at"
-    t.string   "ip_address"
-    t.string   "user_agent"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "authentication_tokens", ["user_id"], name: "index_authentication_tokens_on_user_id", using: :btree
-
   create_table "friendships", force: :cascade do |t|
     t.integer "friendable_id"
     t.integer "friend_id"
@@ -43,16 +31,6 @@ ActiveRecord::Schema.define(version: 20160321140859) do
   end
 
   add_index "friendships", ["friendable_id", "friend_id"], name: "index_friendships_on_friendable_id_and_friend_id", unique: true, using: :btree
-
-  create_table "identities", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id"
@@ -143,6 +121,7 @@ ActiveRecord::Schema.define(version: 20160321140859) do
     t.inet     "last_sign_in_ip"
     t.boolean  "mentor",                 default: false
     t.boolean  "private",                default: false
+    t.string   "slug"
     t.string   "authentication_token"
     t.string   "provider"
     t.string   "uid"

@@ -23,6 +23,7 @@ gem 'omniauth-facebook'
 gem 'geocoder'
 gem 'fb_graph2'
 gem 'mailboxer'
+gem 'friendly_id', '~> 5.0.0'
 
 group :development, :test do
   gem 'coveralls', require: false
@@ -57,4 +58,3 @@ end
 group :production do
   gem 'rails_12factor'
 end
-

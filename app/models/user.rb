@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   acts_as_token_authenticatable
+  extend FriendlyId
+  friendly_id :user_name, use: [:slugged, :finders]
+
   acts_as_taggable_on :skills
   acts_as_messageable
 
@@ -7,8 +10,8 @@ class User < ActiveRecord::Base
   after_validation :geocode, if: lambda{ |obj| obj.ip_address.present? }
   
   validates :gender,
-    :inclusion  => { :in => [ 'Male', 'Female', 'male', 'female', nil ],
-    :message    => "%{value} is not a valid gender" }
+    inclusion: { in: [ 'Male', 'Female', 'male', 'female', nil ],
+    message: "%{value} is not a valid gender" }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
