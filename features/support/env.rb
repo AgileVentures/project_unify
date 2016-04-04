@@ -1,5 +1,7 @@
 require 'coveralls'
-Coveralls.wear!
+require 'simplecov'
+SimpleCov.command_name "features"
+Coveralls.wear_merged!('rails')
 require 'rack/test'
 require 'cucumber/rails'
 require 'capybara/poltergeist'
