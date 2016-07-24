@@ -11,6 +11,10 @@ class Api::V1::UsersController < ApiController
     render 'index'
   end
 
+  def index_friendships
+    @users = User.find(params[:id]).friends
+    render 'index'
+  end
 
   def show
     @user = User.find(params[:id])
