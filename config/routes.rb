@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'mailbox/conversations', controller: :mailbox, action: :inbox, as: :mailbox_inbox
       get 'mailbox/conversations/trash', controller: :mailbox, action: :trash, as: :mailbox_trash
       get 'mailbox/conversations/messages_count', controller: :mailbox, action: :messages_count, as: :messages_count
+      get 'user/:id/pending_friendships/index', controller: :users, action: :index_pending_friendships, as: :index_pending_friendships, constraints: {format: /json/}
     end
     
     namespace :v0 do

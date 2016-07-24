@@ -6,6 +6,11 @@ class Api::V1::UsersController < ApiController
     @users = User.all
   end
 
+  def index_pending_friendships
+    @users = User.find(params[:id]).pending_invited_by
+    render 'index'
+  end
+
 
   def show
     @user = User.find(params[:id])
