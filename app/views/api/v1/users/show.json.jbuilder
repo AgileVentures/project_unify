@@ -22,5 +22,10 @@ json.user do
       json.name pending.user_name
       json.url url_for(pending)
     end
+    json.pending_invited_friendships user.pending_invited do |pending|
+      json.id pending.id
+      json.name pending.user_name
+      json.url url_for(pending)
+    end
   end
 end
