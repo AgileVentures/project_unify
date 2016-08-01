@@ -61,7 +61,8 @@ describe Api::V1::UsersController do
                                   skills: resource.skill_list.sort,
                                   created_at: resource.created_at,
                                   friends: resource.friends,
-                                  pending_friendships: resource.pending_invited_by}}
+                                  pending_friendships: resource.pending_invited_by,
+                                  pending_invited_friendships: []}}
       expect(response_json).to eq JSON.parse(expected_response.to_json)
     end
 
