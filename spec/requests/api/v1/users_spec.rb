@@ -24,6 +24,7 @@ describe Api::V1::UsersController do
       User.all.each do |user|
         collection << {id: user.id,
                        user_name: user.user_name,
+                       email: user.email,
                        city: user.city,
                        country: user.country,
                        created_at: user.created_at,
