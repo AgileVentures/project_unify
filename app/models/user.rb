@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   acts_as_taggable_on :skills
   acts_as_messageable
+
   has_many :skills, foreign_key: :taggable_id
   has_many :tags, through: :skills
 
@@ -13,13 +14,13 @@ class User < ApplicationRecord
   has_many :languages, through: :user_languages
 
   after_validation :reverse_geocode, if: lambda { |obj| obj.latitude.present? || obj.longitude.present? }
-  after_validation :geocode, if: lambda { |obj| obj.ip_address.present? }
+  after_validation :geocode, if: lambda { |obj| obj.ip_address.present? && (!obj.latitude.present? || !obj.longitude.present?)}
 
   validates :gender,
             inclusion: {in: ['Male', 'Female', 'male', 'female', nil],
-                        message: "%{value} is not a valid gender"}
+                        message: '%{value} is not a valid gender'}
 
-  validates_length_of :introduction, maximum: 140, message: "Maximum length is 140 characters"
+  validates_length_of :introduction, maximum: 140, message: 'Maximum length is 140 characters'
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
