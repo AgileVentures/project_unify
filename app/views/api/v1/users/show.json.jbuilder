@@ -14,18 +14,21 @@ json.user do
   json.friends user.friends do |friend|
     json.id friend.id
     json.name friend.user_name
+    json.email friend.email
     json.url url_for(friend)
   end
   if current_user
     json.pending_friendships user.pending_invited_by do |pending|
       json.id pending.id
       json.name pending.user_name
+      json.email pending.email
       json.url url_for(pending)
     end
 
     json.pending_invited_friendships user.pending_invited do |pending|
       json.id pending.id
       json.name pending.user_name
+      json.email pending.email
       json.url url_for(pending)
     end
 
